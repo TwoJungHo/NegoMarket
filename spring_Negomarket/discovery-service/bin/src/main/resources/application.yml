@@ -1,0 +1,11 @@
+server:
+  port: 8761 # port는 8761
+  
+spring:
+  application:
+    name: discoveryservice # 서비스명 등록
+    
+eureka:
+  client:
+    register-with-eureka: false # 디스커버리서버에 등록할건가 ? 안함
+    fetch-registry: false #유레카서버(=디스커버리서버)로부터 다른 인스턴스(서비스)들의 정보를 가져와서 갱신 할 것인가? 안함

@@ -1,0 +1,480 @@
+@font-face {
+  font-family: "omyu_pretty";
+  src: url(/public/fonts/omyu_pretty.ttf);
+}
+
+* {
+  font-family: "omyu_pretty";
+  font-size: large;
+  margin: 0;
+  padding: 0
+}
+
+#navimg {
+  margin-left: 15px;
+  z-index: 100001;
+  position: fixed;
+}
+
+#nav {
+  z-index: 100000;
+  font-size: x-large;
+  position: fixed;
+  background-color: rgb(190, 10, 10);
+  width: 100%;
+  min-width: 800px;
+  height: 40px;
+  margin-top: 60px;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.349);
+}
+
+#nav-fake-background {
+  z-index: 99999;
+  position: fixed;
+  top: 0;
+  height: 100px;
+  /* same as the top margin of the navbar */
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+  /* same as the navbar background */
+  /* should be less than the navbar z-index */
+}
+
+#nav .link {
+  color: rgb(255, 255, 255);
+  padding: 0.3em;
+  margin-left: 1em;
+  font-size: larger;
+  text-decoration: none;
+}
+
+#nav .link:visited {
+  color: rgb(255, 255, 255);
+}
+
+#nav .link:hover {
+  border-radius: 10%;
+  background-color: rgba(75, 0, 0, 0.336);
+  color: rgb(241, 239, 70);
+}
+
+
+#bodybox {
+  
+  display: flex;
+  padding-top: 130px;
+  width: 100%;
+  justify-content: center;
+  
+}
+
+
+
+#bodybox #router_container {
+  display: flex;
+  max-width: 1080px;
+  justify-content: center;
+}
+
+#bodybox #router_container .routes{
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1080px;
+  justify-content: center;
+}
+
+#bodybox #router_container .routes .components-inputs{
+  display: inline-block;
+  vertical-align: top;
+  padding: 2px;
+}
+
+#bodybox #router_container .routes .components-inputs input{
+  font-size: x-large;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(92, 102, 0, 0.438);
+  border-radius: 3px;
+  margin: 10px;
+  height: 40px;
+  width: 100%;
+  padding: 0.2em;
+  
+}
+
+#bodybox #router_container .routes .components-inputs-sm{
+  display: inline-block;
+  vertical-align: top;
+  padding: 1px;
+}
+
+#bodybox #router_container .routes .components-inputs-sm input{
+  font-size: medium;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(92, 102, 0, 0.438);
+  border-radius: 3px;
+  margin: 5px;
+  height: 25px;
+  width: 100%;
+  padding: 0.3em;
+  
+}
+
+
+
+
+#kmap {
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgb(190, 10, 10);
+  border-radius: 30px;
+}
+
+#board-insert-title {
+  font-size: xx-large;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(66, 66, 66, 0.438);
+  border-radius: 3px;
+  width: 950px;
+  height: 40px;
+  margin-right: 1em;
+  padding: 0.3em;
+}
+
+#board-insert-quill {
+
+  width: 1080px;
+  height: 800px;
+  margin: 0 0 3em 0;
+
+}
+
+#signup-btn-container{
+  vertical-align: top;
+  display: inline-block;
+  margin-top: 3em;
+  width: 200px;
+  height: 300px;
+  padding-left: 2em;
+}
+#signup-btn {
+  font-display: block;
+  width: 100px;
+  height: 100px;
+
+  border: none;
+  border-radius: 0.2em;
+  background-color: rgb(190, 10, 10);
+  font-size: xx-large;
+  color:rgb(255, 255, 255);
+  padding: 0.4em
+}
+
+#signup-btn:hover{
+  
+  background-color: rgb(0, 0, 0);
+  color: rgb(241, 239, 70);
+  }
+
+
+.imageBox-sm {
+  display: inline-block;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(190, 10, 10, 0.288);
+  border-radius: 10%;
+  padding: 0px;
+  
+}
+
+.imageBox-sm img{
+  object-fit: cover;
+  border-radius: 10%;
+  padding: 0px;
+  
+}
+
+
+.imageBox-lg {
+  display: inline-block;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(190, 10, 10, 0.288);
+  border-radius: 30px;
+  padding: 0px;
+}
+
+.imageBox-lg img{
+  object-fit: cover;
+  border-radius: 30px;
+  padding: 0px;
+  
+}
+
+
+
+
+input[type="range"] {
+  /* 슬라이드바 전체에 대한 스타일 */
+  -webkit-appearance: none; /* Chrome */
+  width: 100%;
+  height: 3px;
+  background: #2b2b2b80;
+  outline: none;
+
+  /* Firefox */
+  appearance: none;
+  
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  /* Chrome의 슬라이드바 핸들에 대한 스타일 */
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 20px;
+  background: rgb(190, 10, 10);
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+  /* Firefox의 슬라이드바 핸들에 대한 스타일 */
+  width: 20px;
+  height: 20px;
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+input[type="range"]::-moz-range-track {
+  /* Firefox의 슬라이드바 트랙에 대한 스타일 */
+  background: #ddd;
+  outline: none;
+}
+
+
+.btn {
+  border: none;
+  border-radius: 0.2em;
+  background-color: rgb(190, 10, 10);
+  font-size: large;
+  color:rgb(255, 255, 255);
+  padding: 0.5em
+}
+
+.btn:hover{
+
+background-color: rgb(0, 0, 0);
+color: rgb(241, 239, 70);
+}
+
+.btn-lg {
+  border: none;
+  border-radius: 0.2em;
+  background-color: rgb(190, 10, 10);
+  font-size: xx-large;
+  color:rgb(255, 255, 255);
+  padding: 0.4em
+}
+
+.btn-lg:hover{
+
+background-color: rgb(0, 0, 0);
+color: rgb(241, 239, 70);
+}
+
+
+.border {
+  border-style: solid;
+  border-color: rgb(206, 202, 202);
+  border-width: 1px;
+}
+
+
+.detailTitle {
+  text-align: center;
+  font-size: xx-large;
+}
+
+.detailbutton {
+  border-color: transparent;
+  background-color: transparent;
+}
+
+.detailbutton:hover {
+  background-color: rgb(206, 202, 202);
+}
+
+
+.mapselect {
+  background-color: white;
+  width: 500px;
+  height: 31px;
+  margin-top: 0.5%;
+}
+
+.mapselect:hover {
+  background-color: rgb(196, 194, 194);
+}
+
+.topmargin {
+  margin-top: 50%;
+}
+
+.button {
+  border-style: solid;
+  border-width: 2px;
+  height: 34px;
+}
+
+.button:hover {
+  background-color: rgb(179, 177, 177);
+}
+
+.button_active {
+  border-style: solid;
+  border-width: 2px;
+  height: 34px;
+  background-color: rgba(66, 57, 77, 0.356);
+}
+
+
+.loginbutton {
+  border-width: 0px;
+  background-color: transparent;
+  width: 170px;
+  height: 80px;
+  align-items: center;
+  justify-content: center;
+  background-image: url(/public/img/login.png);
+  background-size: cover;
+
+}
+
+.loginbutton:hover {
+  background-image: url(/public/img/loginhover.png);
+}
+
+.insertButton {
+  border-style: solid;
+  border-color: transparent;
+  height: 25px;
+}
+
+.insertButton:hover {
+  background-color: rgb(179, 177, 177);
+}
+
+.star-left-full {
+  border-width: 0;
+  width: 40px;
+  height: 80px;
+  background-image: url(/public/img/star_left_full.png);
+  background-size: cover;
+  background-color: transparent;
+}
+
+.star-left-empty {
+  border-width: 0;
+  width: 40px;
+  height: 80px;
+  background-image: url(/public/img/star_left_empty.png);
+  background-size: cover;
+  background-color: transparent;
+}
+
+.star-right-full {
+  border-width: 0;
+  width: 40px;
+  height: 80px;
+  background-image: url(/public/img/star_right_full.png);
+  background-size: cover;
+  background-color: transparent;
+}
+
+.star-right-empty {
+  border-width: 0;
+  width: 40px;
+  height: 80px;
+  background-image: url(/public/img/star_right_empty.png);
+  background-size: cover;
+  background-color: transparent;
+}
+
+
+
+.chatInputElement {
+  display: flex;
+}
+
+.chatMessageBox {
+  border-style: solid;
+  border-color: rgb(179, 177, 177);
+  border-radius: 3%;
+  border-width: 1px;
+  border-right-color: transparent;
+  width: 440px;
+  height: 500px;
+  margin: 10px auto;
+  padding: 3% 5%;
+  overflow-y: scroll;
+  display: flex;
+  background-image: url(/public/img/backchat.png);
+  background-size: cover;
+  background-position: 10%;
+
+}
+
+.chatMessageBox::-webkit-scrollbar {
+  width: 10px;
+  background-color: rgba(128, 128, 128, 0.747);
+  border-radius: 15px;
+}
+
+.chatMessageBox::-webkit-scrollbar-thumb {
+  width: 10px;
+  background-color: rgba(0, 0, 0, 0.39);
+  border-radius: 15px;
+}
+
+.chatMessageBox::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(0, 0, 0);
+}
+
+.chatMessage {
+  border-style: solid;
+  border-color: rgb(71, 71, 71);
+  border-radius: 10px 10px 10px 10px;
+  border-width: 0.5px;
+  background-color: rgba(192, 192, 192, 0.322);
+  margin: 4% auto;
+  max-width: 300px;
+  padding: 3% 5%;
+}
+
+.chatbutton {
+  border-style: solid;
+  border-width: 0.5px;
+  border-radius: 10%;
+  height: 34px;
+
+}
+
+.chatbutton:hover {
+  background-color: rgb(179, 177, 177);
+}
+
+.sendmessage {
+  border-style: solid;
+  border-color: rgb(163, 161, 161);
+  border-width: 1px;
+  border-radius: 10px 10px 10px 10px;
+  width: 445px;
+  height: 30px;
+
+
+}

@@ -1,0 +1,138 @@
+server:
+  port: 8000
+  
+spring:
+  application:
+    name: apigateway-service
+    
+  cloud:
+    gateway:
+      globalcors:
+        add-to-simple-url-handler-mapping: true
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:3000"
+            allowedHeaders: '*'
+            allow-credentials: true
+            allowedMethods: POST, GET, PUT, DELETE
+            
+      routes:
+      
+          
+      # board-service
+      - id: board-service
+        uri: lb://BOARD-SERVICE
+        predicates:
+        - Path=/board-service/** #유저가 브라우저 주소창에 http://localhost:8000/user-service/users 입력 user-service를 보고 id를 확인하고 uri로 넘어감
+        - Method=GET, POST, PUT, DELETE
+        
+      # sell-service
+      - id: sell-service #순서 2번
+        uri: lb://SELL-SERVICE #순서 3번
+        predicates:
+        - Path=/sell-service/** #순서 1번   
+        - Method=GET, POST, PUT, DELETE
+        
+      # review-service
+      - id: review-service 
+        uri: lb://REVIEW-SERVICE 
+        predicates:
+        - Path=/review-service/**   
+        - Method=GET, POST, PUT, DELETE
+      
+      # chat-service 
+      - id: chat-service #순서 2번
+        uri: lb:ws://CHAT-SERVICE/ #순서 3번
+        predicates:
+        - Path=/chat-service/wsstomp #순서 1번   
+        filters:
+        - RemoveRequestHeader=Cookie
+        - RewritePath=/chat-service/(?<segment>.*), /$\{segment}
+        
+      
+      - id: chat-service #순서 2번
+        uri: lb://CHAT-SERVICE #순서 3번
+        predicates:
+        - Path=/chat-service/** #순서 1번   
+        - Method=GET, POST, PUT, DELETE
+        
+        #종봉님 이미지파일 서비스
+      - id: imgfile-service 
+        uri: lb://IMGFILE-SERVICE 
+        predicates:
+        - Path=/imgfile-service/**   
+        - Method=GET, POST, PUT, DELETE
+        
+        # user-service   
+      - id: user-service 
+        uri: lb://USER-SERVICE 
+        predicates:
+        - Path=/user-service/users
+        - Method=POST
+        
+      - id: user-service 
+        uri: lb://USER-SERVICE 
+        predicates:
+        - Path=/user-service/login 
+        - Method=POST
+        
+      - id: user-service 
+        uri: lb://USER-SERVICE 
+        predicates:
+        - Path=/user-service/pic/*
+        - Method=GET
+        
+      - id: user-service 
+        uri: lb://USER-SERVICE 
+        predicates:
+        - Path=/user-service/testinsert
+        - Method=POST
+      
+      - id: user-service 
+        uri: lb://USER-SERVICE 
+        predicates:
+        - Path=/user-service/health_check
+        - Method=GET
+        
+      - id: user-service
+        uri: lb://USER-SERVICE
+        predicates:
+        - Path=/user-service/actuator/**
+        - Method=GET, POST
+        filters:
+        - RemoveRequestHeader=Cookie
+        - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+      
+
+      - id: user-service 
+        uri: lb://USER-SERVICE 
+        predicates:
+        - Path=/user-service/**   
+        - Method=GET, POST, PUT, DELETE
+        filters:
+        - name: AuthorizationFilter
+     
+      
+ 
+        
+ 
+      
+      
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+  client:
+    register-with-eureka: true 
+    fetch-registry: true 
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+      
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, info, beans
+
+#data:
+#  SECRET_KEY: tj705team
