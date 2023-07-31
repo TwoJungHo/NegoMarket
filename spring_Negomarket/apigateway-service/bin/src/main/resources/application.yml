@@ -11,7 +11,10 @@ spring:
         add-to-simple-url-handler-mapping: true
         cors-configurations:
           '[/**]':
-            allowedOrigins: "http://localhost:3000"
+            allowedOrigins: 
+              - "http://localhost:3000"
+              - "http://axiology.iptime.org:3000"
+             
             allowedHeaders: '*'
             allow-credentials: true
             allowedMethods: POST, GET, PUT, DELETE
@@ -40,14 +43,25 @@ spring:
         - Path=/review-service/**   
         - Method=GET, POST, PUT, DELETE
       
-      # chat-service 
+      
+       # chat-service 
       - id: chat-service #순서 2번
         uri: lb:ws://CHAT-SERVICE/ #순서 3번
         predicates:
         - Path=/chat-service/wsstomp #순서 1번   
-        filters:
-        - RemoveRequestHeader=Cookie
-        - RewritePath=/chat-service/(?<segment>.*), /$\{segment}
+        - Method=GET, POST, PUT, DELETE
+
+      
+      
+      
+#      # chat-service 
+#      - id: chat-service #순서 2번
+#        uri: lb:ws://CHAT-SERVICE/ #순서 3번
+#        predicates:
+#        - Path=/chat-service/wsstomp #순서 1번   
+#        filters:
+#        - RewritePath=/chat-service/(?<segment>.*), /$\{segment}
+       
         
       
       - id: chat-service #순서 2번
@@ -56,14 +70,27 @@ spring:
         - Path=/chat-service/** #순서 1번   
         - Method=GET, POST, PUT, DELETE
         
-        #종봉님 이미지파일 서비스
+       
       - id: imgfile-service 
         uri: lb://IMGFILE-SERVICE 
         predicates:
         - Path=/imgfile-service/**   
         - Method=GET, POST, PUT, DELETE
         
-        # user-service   
+        # user-service
+      - id: user-service 
+        uri: lb://USER-SERVICE 
+        predicates:
+        - Path=/user-service/tokenValidation
+        - Method=GET
+        
+      - id: user-service 
+        uri: lb://USER-SERVICE 
+        predicates:
+        - Path=/user-service/pwvalidation
+        - Method=POST
+        
+           
       - id: user-service 
         uri: lb://USER-SERVICE 
         predicates:
@@ -75,6 +102,8 @@ spring:
         predicates:
         - Path=/user-service/login 
         - Method=POST
+        
+     
         
       - id: user-service 
         uri: lb://USER-SERVICE 
@@ -121,6 +150,7 @@ spring:
 eureka:
   instance:
     prefer-ip-address: true
+    ip-address: localhost
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
   client:
     register-with-eureka: true 
