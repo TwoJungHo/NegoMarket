@@ -4,6 +4,11 @@ server:
 spring:
   application:
     name: discovery-service # 서비스명 등록
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
     
 eureka:
   client:
@@ -13,3 +18,5 @@ eureka:
     prefer-ip-address: true
     ip-address: 127.0.0.1
     hostname: localhost
+
+

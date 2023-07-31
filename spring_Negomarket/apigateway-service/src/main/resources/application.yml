@@ -4,6 +4,11 @@ server:
 spring:
   application:
     name: apigateway-service
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
     
   cloud:
     gateway:
@@ -12,7 +17,7 @@ spring:
         cors-configurations:
           '[/**]':
             allowedOrigins: 
-              - "http://localhost:3000"
+              - "http://127.0.0.1:3000"
              
             allowedHeaders: '*'
             allow-credentials: true
@@ -155,7 +160,7 @@ eureka:
     register-with-eureka: true 
     fetch-registry: true 
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://127.0.0.1:8761/eureka
       
 management:
   endpoints:

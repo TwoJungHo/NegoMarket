@@ -9,3 +9,9 @@ spring:
           uri: https://github.com/axiology83/tj705teamyml.git
   application:
     name: config-service
+
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest

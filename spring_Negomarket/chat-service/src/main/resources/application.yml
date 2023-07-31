@@ -4,7 +4,11 @@ server:
 spring:
   application:
     name: chat-service
-  
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
   
   h2: # h2 데이터베이스. 내장형이라서 어플리케이션 도메인, 포트 그대로 사용함.
     console:
@@ -34,7 +38,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true 
     service-url:
-      defaultZone: http://localhost:8761/eureka 
+      defaultZone: http://127.0.0.1:8761/eureka 
 
 
 logging:

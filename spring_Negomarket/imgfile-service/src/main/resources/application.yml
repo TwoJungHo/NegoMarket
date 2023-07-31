@@ -4,6 +4,11 @@ server:
 spring:
   application:
     name: imgfile-service
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
   
   
   h2: # h2 데이터베이스. 내장형이라서 어플리케이션 도메인, 포트 그대로 사용함.
@@ -34,5 +39,5 @@ eureka:
     register-with-eureka: true # 유레카 서버에 등록하라.
     fetch-registry: true # 주기적으로 다른 인스턴스 데이터를 받아와서 갱신하라.
     service-url:
-      defaultZone: http://localhost:8761/eureka # 유레카 서버의 주소
+      defaultZone: http://127.0.0.1:8761/eureka # 유레카 서버의 주소
 

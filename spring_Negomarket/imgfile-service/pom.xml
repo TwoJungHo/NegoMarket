@@ -10,7 +10,8 @@
 	</parent>
 	<groupId>kr.co.tj</groupId>
 	<artifactId>imgfile-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
+	<!--<version>0.0.1-SNAPSHOT</version>-->
 	<name>imgfile-service</name>
 	<description>image file service for Spring Boot</description>
 	<properties>
@@ -24,6 +25,10 @@
 			<version>0.4.19</version>
 		</dependency>
 		
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-bus-amqp</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>

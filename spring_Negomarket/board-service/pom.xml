@@ -10,7 +10,8 @@
 	</parent>
 	<groupId>kr.co.tj</groupId>
 	<artifactId>board-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
+	<!--<version>0.0.1-SNAPSHOT</version>-->
 	<name>board-service</name>
 	<description>board-service</description>
 	<properties>
@@ -20,7 +21,10 @@
 	<dependencies>
 		
 		
-		
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-bus-amqp</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
