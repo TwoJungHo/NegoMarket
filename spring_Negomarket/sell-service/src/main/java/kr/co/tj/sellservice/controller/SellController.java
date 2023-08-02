@@ -53,7 +53,6 @@ public class SellController {
 	private SellInfoService sellInfoService;
 	private SellImgService sellImgService;
 	
-	
 	@Autowired
 	public SellController(Environment env, SellInfoService sellInfoService, SellImgService sellImgService) {
 		super();
@@ -61,7 +60,6 @@ public class SellController {
 		this.sellInfoService = sellInfoService;
 		this.sellImgService = sellImgService;
 	}
-	
 	
 	// sell 데이터 1개 호출
 	@GetMapping("/sells/detail/{sellId}")
@@ -200,12 +198,9 @@ public class SellController {
 		return ResponseEntity.ok().headers(headers).body(imgData);
 	}
 	
-	
-	
 	/* board-service에서 feign으로 호출되는 엔드포인트
 	 * 각각 board의 Get, Post, Put, Delete 요청에 대응해서
 	 * sell 데이터를 처리하게 됨.	 */
-	
 	@GetMapping("/board-sells/{sellId}")
 	public ResponseEntity<?> getSell(@PathVariable("sellId") String sellId){
 		SellInfoDTO sellInfoDTO = sellInfoService.findBySellId(sellId);
@@ -231,10 +226,7 @@ public class SellController {
 		.sellInfoResponse(sellInfoResponse)
 		.imgPathId(sellImgDTO.getId())
 		.build();
-				
-		
 		return ResponseEntity.ok().body(sellResponse);
-		
 		}
 		
 		SellResponse sellResponse = SellResponse.builder()
@@ -244,8 +236,6 @@ public class SellController {
 		
 		return ResponseEntity.ok().body(sellResponse);			
 	}
-	
-	
 	
 	
 	@PostMapping("/board-sells")
@@ -263,7 +253,6 @@ public class SellController {
 				.sellState(sellInfoRequest.getSellState())
 				.build();
 				
-		
 		infoDTO = sellInfoService.insert(infoDTO);
 		
 		SellInfoResponse infoResponse = SellInfoResponse.builder()
@@ -277,7 +266,6 @@ public class SellController {
 				.latitude(infoDTO.getLatitude())
 				.sellState(infoDTO.getSellState())
 				.build();
-		
 		
 		if(sellImgRequest == null) {
 			SellFeignResponse sellFeignResponse = new SellFeignResponse(infoResponse, "there was no sell image");
@@ -293,8 +281,6 @@ public class SellController {
 		String sid = sellImgService.insertImg(imgDTO);
 		SellFeignResponse sellFeignResponse = new SellFeignResponse(infoResponse, "sell image successfully uploaded with id: " + sid);
 		return ResponseEntity.ok().body(sellFeignResponse);
-		
-		
 	}
 	
 	
@@ -379,7 +365,6 @@ public class SellController {
 				.getBody()
 				.getSubject();
 		
-		
 		MultipartFile imgFile = request.getFile("imgFile");
 		
 		String productName = request.getParameter("productName");
@@ -399,7 +384,6 @@ public class SellController {
 				.latitude(latitude)
 				.build();
 				
-		
 		infoDTO = sellInfoService.insert(infoDTO);
 		
 		SellInfoResponse infoResponse = SellInfoResponse.builder()
@@ -470,7 +454,6 @@ public class SellController {
 		
 		if(bearerToken == null) {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-
 		}
 		
 		String token = bearerToken.replace("Bearer ", "");
@@ -536,9 +519,7 @@ public class SellController {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 		}
 		
-		
 		List<SellInfoDTO> sellInfoDTOList = sellInfoService.findAroundAll(longitude, latitude, rangeInKm);
-		
 		
 		return ResponseEntity.ok().body(sellInfoDTOList);
 	}
@@ -551,7 +532,6 @@ public class SellController {
 
 		}
 		
-		
 		String token = bearerToken.replace("Bearer ", "");
 		String secKey = env.getProperty("data.SECRET_KEY");
 		String encodedSecKey = Base64.getEncoder().encodeToString(secKey.getBytes());
@@ -614,7 +594,6 @@ public class SellController {
 			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 		}
-		
 		
 		List<SellInfoDTO> sellInfoDTOList = sellInfoService.findAroundAll(longitude, latitude, rangeInKm);
 		List<SellInfoDTO> sellInfoDTOListPage = new ArrayList<>();
@@ -628,10 +607,6 @@ public class SellController {
 		} else {
 			sellInfoDTOListPage = sellInfoDTOList.subList(page*10 - 10, page*10);
 		}
-		
-		
-				
-		
 		return ResponseEntity.ok().body(sellInfoDTOListPage);
 	}
 	
@@ -650,8 +625,6 @@ public class SellController {
 			
 			return ResponseEntity.badRequest().body("failed");
 		}
-		
-		
 		
 		SellInfoDTO sellInfoDTO = sellInfoService.isReviewed(id, sellInfoRequest.isReviewed());
 		SellInfoResponse sellInfoResponse = SellInfoResponse.builder()
@@ -672,16 +645,13 @@ public class SellController {
 	}
 	
 	
-	
 	@PutMapping("/sells/reserve")
 	public ResponseEntity<?> makeReservation(
 			@RequestHeader(value = "Authorization", required = false) String bearerToken,
 			@RequestBody SellInfoRequest sellInfoRequest) {
 		
-
 		if (bearerToken == null) {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-
 		}
 
 		String token = bearerToken.replace("Bearer ", "");
@@ -689,7 +659,6 @@ public class SellController {
 		String encodedSecKey = Base64.getEncoder().encodeToString(secKey.getBytes());
 
 		String username;
-
 		try {
 			username = Jwts.parser()
 					.setSigningKey(encodedSecKey)
@@ -717,8 +686,6 @@ public class SellController {
 			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 		}
-		
-		
 		
 		String id = sellInfoRequest.getId();
 		String buyer = sellInfoRequest.getBuyer();
@@ -750,10 +717,8 @@ public class SellController {
 				.latitude(sellInfoDTO.getLatitude())
 				.isReviewed(sellInfoDTO.isReviewed())
 				.build();
-		
 		return ResponseEntity.ok().body(sellInfoResponse);
 	}
-	
 	
 	
 	@PutMapping("/sells/soldout")
@@ -763,7 +728,6 @@ public class SellController {
 		
 		if (bearerToken == null) {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-
 		}
 
 		String token = bearerToken.replace("Bearer ", "");
@@ -771,7 +735,6 @@ public class SellController {
 		String encodedSecKey = Base64.getEncoder().encodeToString(secKey.getBytes());
 
 		String username;
-
 		try {
 			username = Jwts.parser()
 					.setSigningKey(encodedSecKey)
@@ -807,7 +770,6 @@ public class SellController {
 		if (!username.equals(orgDTO.getUsername())) {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 		}
-		
 
 		if (orgDTO.getSellState() == SellState.SOLD_OUT) {
 
@@ -878,9 +840,6 @@ public class SellController {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 		}
 		
-		
-		
-		
 		String id = sellInfoRequest.getId();
 		SellInfoDTO orgDTO = sellInfoService.findBySellId(id);
 		
@@ -920,9 +879,6 @@ public class SellController {
 			@RequestParam("latitude") Double latitude, 
 			@RequestParam("page") int page){
 		
-		
-		
-		
 		List<SellInfoDTO> sellInfoDTOList = sellInfoService.findAroundAll(longitude, latitude, rangeInKm);
 		List<SellInfoDTO> sellInfoDTOListPage = new ArrayList<>();
 		
@@ -935,26 +891,6 @@ public class SellController {
 		} else {
 			sellInfoDTOListPage = sellInfoDTOList.subList(page*10 - 10, page*10);
 		}
-		
-		
-				
-		
 		return ResponseEntity.ok().body(sellInfoDTOListPage);
 	}
-	
-	
-	
-	
-
-	// 테스트용 데이터 입력 입력 시도 횟수, 신촌역 중심 반경(km) 입력.
-	// 신촌역 중심으로 조금 넓은 범위로 데이터를 랜덤 생성하여 원하는 반경 내의 데이터만 db에 입력
-	@GetMapping("/testinsert")
-	public void testinsert(int trialNum, double range) {
-		
-		sellInfoService.testinsert(trialNum, range);
-		
-	}
-	
-
-
 }

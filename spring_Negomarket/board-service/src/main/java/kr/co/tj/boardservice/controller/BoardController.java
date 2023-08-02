@@ -66,8 +66,6 @@ public class BoardController {
 	
 	}
 	
-	
-	
 	@GetMapping("/boards/{sellId}")
 	public ResponseEntity<?> getBoard(@PathVariable("sellId") String sellId){
 		ResponseEntity<SellFeignGetResponse> feignResponse = sellFeignClient.getSell(sellId);
@@ -120,16 +118,11 @@ public class BoardController {
 					.build();
 		} 
 		
-	
-		
 		String productName = request.getParameter("productName");
 		Long price = Long.parseLong(request.getParameter("price"));
 		Double longitude = Double.parseDouble(request.getParameter("longitude"));
 		Double latitude = Double.parseDouble(request.getParameter("latitude"));
 	
-		
-		
-		
 		SellInfoRequest sellInfoRequest = SellInfoRequest.builder()
 				.id(null)
 				.username(username)
@@ -140,8 +133,6 @@ public class BoardController {
 				.latitude(latitude)
 				.isReviewed(false)
 				.build();
-		
-	
 		
 		SellFeignRequest sellFeignRequest = SellFeignRequest.builder()
 				.sellImgRequest(sellImgRequest)
@@ -156,8 +147,6 @@ public class BoardController {
 		
 		SellFeignResponse sellFeignResponse = feignResponse.getBody();
 		SellInfoResponse sellInfoResponse = sellFeignResponse.getSellInfoResponse();
-		
-				
 		
 		String sellId = sellInfoResponse.getId();
 		String title = request.getParameter("title");
@@ -193,6 +182,7 @@ public class BoardController {
 		return ResponseEntity.ok().body(boardResponse);
 	}
 	
+	
 	@PutMapping("/boards/{sellId}")
 	public ResponseEntity<?> update(@PathVariable("sellId") String sellId, @RequestHeader("Authorization") String bearerToken, 
 			MultipartHttpServletRequest request){
@@ -226,8 +216,6 @@ public class BoardController {
 					.build();
 		} 
 		
-	
-		
 		String productName = request.getParameter("productName");
 		Long price = Long.parseLong(request.getParameter("price"));
 		Double longitude = Double.parseDouble(request.getParameter("longitude"));
@@ -258,8 +246,6 @@ public class BoardController {
 		
 		SellFeignResponse sellFeignResponse = feignResponse.getBody();
 		SellInfoResponse sellInfoResponse = sellFeignResponse.getSellInfoResponse();
-		
-				
 				
 		String title = request.getParameter("title");
 		String deltaString = request.getParameter("deltaString");
@@ -290,12 +276,9 @@ public class BoardController {
 				.deltaString(boardDTO.getDeltaString())
 				.htmlString(boardDTO.getHtmlString())
 				.build();
-		
 	
 		return ResponseEntity.ok().body(boardResponse);
-		
 	}
-	
 	
 	
 	@DeleteMapping("/boards/{sellId}")
@@ -311,7 +294,6 @@ public class BoardController {
 				.getBody()
 				.getSubject();
 		
-		
 		String sellDelResponse = sellFeignClient.delete(sellId).getBody();
 		
 		BoardDTO boardDTO = boardService.findBySellId(sellId);
@@ -319,8 +301,6 @@ public class BoardController {
 		if(!boardDTO.getUsername().equals(username)) {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("삭제 권한 없음");
 		}
-				
-		
 		
 		UserFeignLoginRequest userFeignLoginRequest = UserFeignLoginRequest.builder()
 				.username(username)
@@ -330,29 +310,19 @@ public class BoardController {
 		ResponseEntity<Boolean> response = userFeignClient.pwValidation(userFeignLoginRequest);
 		
 		boolean isPwValid = response.getBody();
-		
 			
 		if(!isPwValid) {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("비밀번호를 확인하세요");
 		}
 		
-				
 		boardService.delete(sellId);
 		
 		return ResponseEntity.ok().body(sellDelResponse);
-		
-		
-	
 	}
-	
-	
 	
 
 	@GetMapping("/testinsert")
 	public ResponseEntity<?> testinsert(int trialNum) {
-		
-		
-		
 		
 		InputStream fileStream = null;
 		ByteArrayOutputStream outputStream = null;
@@ -360,8 +330,6 @@ public class BoardController {
 			
 			int testImgNum = i%10;
 			String testImgFileName = "/testimg/testimg" + testImgNum + ".jpg";
-			
-			
 			
 			byte[] imageData = null;
 			byte[] thumData = null;
@@ -435,16 +403,13 @@ public class BoardController {
 			//신촌역 좌표
 		    double baseLatitude = 37.5552314845079;  // 기준 위도
 		    double baseLongitude = 126.93693998959822;  // 기준 경도
-		        	    
 		    
 		    // 대략적으로 일정범위(사각형 비슷하게) 좌표값 생성, 할당
 		    double latitude = (baseLatitude - 0.5) + Math.random() * 1.0;
 		    double longitude = (baseLongitude - 0.4) + Math.random() * 0.8;
 		     
-		    
 		    String sti = String.format("%04d", i);
 		    int caseNum = i%5;
-		   
 		
 		    String username = "jwy" + caseNum;
 		    String buyer = "buy" + caseNum;
@@ -453,8 +418,6 @@ public class BoardController {
 			Long price = null;
 			
 			//5가지 상품 종류를 마련했습니다!!
-			
-			
 			switch (caseNum) {
 			case 0:
 				productName = "애플 맥 장원영" + sti;
@@ -476,7 +439,6 @@ public class BoardController {
 				productName = "롤렉스 장원영" + sti;
 				price = 1350000L + i;
 				break;
-			
 			}
 			
 			// 날짜도 적당히 랜덤으로 만들어 냄
@@ -488,11 +450,7 @@ public class BoardController {
 			cal.set(year, month-1, day);
 			Date date = cal.getTime();
 			
-			Date createAt = date;
-			Date updateAt = date;
-			
-			
-			// enum 설정 방법, 혹시 모르셨던 분은 참고!
+			// enum 설정
 			SellState sellState = SellState.ON_SALE;
 			
 			SellInfoRequest sellInfoRequest = SellInfoRequest.builder()
@@ -507,8 +465,6 @@ public class BoardController {
 					.isReviewed(false)
 					.build();
 			
-		
-			
 			SellFeignRequest sellFeignRequest = SellFeignRequest.builder()
 					.sellImgRequest(sellImgRequest)
 					.sellInfoRequest(sellInfoRequest)
@@ -522,8 +478,6 @@ public class BoardController {
 			
 			SellFeignResponse sellFeignResponse = feignResponse.getBody();
 			SellInfoResponse sellInfoResponse = sellFeignResponse.getSellInfoResponse();
-			
-					
 			
 			String sellId = sellInfoResponse.getId();
 			String title = productName;
@@ -547,15 +501,7 @@ public class BoardController {
 					.build();
 			
 			boardDTO = boardService.insert(boardDTO);
-			
-		
-		
 		} // 여기가 for 문의 끝
-		
 		return ResponseEntity.ok().build();
-		
 	}
-	
-
-	
 }
