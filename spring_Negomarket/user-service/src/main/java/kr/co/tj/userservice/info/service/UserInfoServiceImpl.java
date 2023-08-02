@@ -185,16 +185,4 @@ public class UserInfoServiceImpl implements UserInfoService {
 		userInfoDTO.setUpdateAt(date);
 		return userInfoDTO;
 	}
-
-	@Override
-	public void testinsert(UserInfoDTO dto) {
-
-		String encPassword = passwordEncoder.encode(dto.getPassword());
-		dto.setPassword(encPassword);
-
-		UserInfoEntity userInfoEntity = dto.toUserEntity();
-		userInfoEntity = userInfoRepository.save(userInfoEntity);
-
-	}
-
 }

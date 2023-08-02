@@ -14,7 +14,6 @@ public interface UserInfoService {
 	void deleteUser(String username);
 	UserInfoDTO setDate(UserInfoDTO userInfoDTO);
 	
-	void testinsert(UserInfoDTO userInfoDTO);
 	boolean passwordValidation(String username, String password);
 	
 	

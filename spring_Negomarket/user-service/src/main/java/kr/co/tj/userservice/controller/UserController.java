@@ -47,7 +47,6 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/user-service")
 public class UserController {
 
-	
 	private Environment env;
 	private UserInfoService userInfoService;
 	private UserPicService userPicService;
@@ -76,8 +75,6 @@ public class UserController {
 		
 		return ResponseEntity.ok().headers(headers).body(picData);
 	}
-
-
 
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody UserLoginRequest userLoginRequest){
@@ -113,25 +110,18 @@ public class UserController {
 		map.put("result", userInfoResponse);
 		return ResponseEntity.ok().body(map);
 	}
-	
-	
 
-	// 회원가입
+		// 회원가입
 		@PostMapping("/users")
 		public ResponseEntity<?> insertUser(MultipartHttpServletRequest request) {
 			
-			
-			
 			if(request.getFile("picFile") == null) {
-				
-				
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("사용자 프로필 사진을 등록하세요");
 			}
 			
 			MultipartFile picFile = request.getFile("picFile");
 			String picFilename = picFile.getOriginalFilename();
 			byte[] picData = ImageResize.getResizedImageData(picFile, 150, 150, 0.5);
-					
 			
 			String username = request.getParameter("username");
 			String name = request.getParameter("name");
@@ -169,13 +159,10 @@ public class UserController {
 			return ResponseEntity.status(HttpStatus.CREATED).body(userInfoResponse);
 		}
 
-
-
 	// 사용자 목록
 	@GetMapping("/users")
-	public ResponseEntity<?> getUsers() {
+	public ResponseEntity<List<UserInfoResponse>> getUsers() {
 		List<UserInfoDTO> userInfoDTOs = userInfoService.getUsers();
-		//List<UserResponse> userResponses = userDTOs.stream().map(UserDTO::toUserResponse).collect(Collectors.toList());
 		List<UserInfoResponse> userInfoResponses = new ArrayList<>();
 		
 		for(UserInfoDTO x : userInfoDTOs) {
@@ -187,7 +174,7 @@ public class UserController {
 
 	// 정보 상세보기
 	@GetMapping("/users/{username}")
-	public ResponseEntity<?> getUser(@PathVariable("username") String username) {
+	public ResponseEntity<UserInfoResponse> getUser(@PathVariable("username") String username) {
 		UserInfoDTO userInfoDTO = userInfoService.getUser(username);
 		UserInfoResponse userInfoResponse = userInfoDTO.toUserResponse();
 
@@ -213,15 +200,10 @@ public class UserController {
 			userInfoDTO = userInfoService.updateUser(userInfoDTO);
 			UserInfoResponse userInfoResponse = userInfoDTO.toUserResponse();
 			
-			
 			return ResponseEntity.status(HttpStatus.OK).body(userInfoResponse);
-			
-		
-		
-		
 	}
 
-	// 삭제
+	// 회원탈퇴
 	@DeleteMapping("/users")
 	public ResponseEntity<?> deleteUser(@RequestBody UserInfoRequest userInfoRequest) {
 		
@@ -235,37 +217,22 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 
-	// 테스트용
-	@GetMapping("/health_check")
-	public String status() {
-		log.info("data.world: {}", env.getProperty("data.world"));
-		log.info("data.test: {}", env.getProperty("data.test"));
-		
-		
-		return "user service입니다" + env.getProperty("local.server.port");
-	}
-	
-	
-	
+	//토큰 유효성 검사
 	@GetMapping("/tokenValidation")
 	public ResponseEntity<Boolean> tokenValidation(
 			@RequestHeader(value = "Authorization", required = false) String bearerToken){
 		boolean isValid = true;
 		
 		if (bearerToken == null) {
-			
 			isValid = false;
 			return ResponseEntity.ok().body(isValid);
-
 		}
 
 		String token = bearerToken.replace("Bearer ", "");
 		String secKey = env.getProperty("data.SECRET_KEY");
 		String encodedSecKey = Base64.getEncoder().encodeToString(secKey.getBytes());
 		try {
-			
 			Jwts.parser().setSigningKey(encodedSecKey).parseClaimsJws(token);
-					
 		} 
 		catch (ExpiredJwtException e) {
 			e.printStackTrace();
@@ -292,62 +259,22 @@ public class UserController {
 			isValid = false;
 			return ResponseEntity.ok().body(isValid);
 		}
-		
 		return ResponseEntity.ok().body(isValid);
 	}
-	
-	
 	
 	@PostMapping("/pwvalidation")
 	public ResponseEntity<Boolean> pwValidation(@RequestBody UserLoginRequest userLoginRequest){
 		
 		boolean isPwValid = userInfoService.passwordValidation(userLoginRequest.getUsername(), userLoginRequest.getPassword());
-		
 		return ResponseEntity.ok().body(isPwValid);
-				
-		
 	}
 	
-	
-	
-//	@GetMapping("/test")
-//	public ResponseEntity<?> test(){
-//		System.out.println(":::::::::::::::잘 될까?::::::로그인 하고 토큰 첨부해야 되는데:::::::::::::");
-//		
-//		return ResponseEntity.status(HttpStatus.OK).body(new UserInfoResponse());
-//	}
-	
-	@PostMapping("/testinsert")
-	public void testinsert() {
-		System.out.println("테스트용 데이터를 여러개 주입합니다.");
-		System.out.println("테스트용 데이터를 여러개 주입합니다.");
-		System.out.println("테스트용 데이터를 여러개 주입합니다.");
-		System.out.println("테스트용 데이터를 여러개 주입합니다.");
-		System.out.println("테스트용 데이터를 여러개 주입합니다.");
+	// 테스트용
+	@GetMapping("/health_check")
+	public String status() {
+		log.info("data.world: {}", env.getProperty("data.world"));
+		log.info("data.test: {}", env.getProperty("data.test"));
 		
-		Random rand = new Random();
-		for (int i = 1; i < 101; i++) {
-			
-			String idnum = String.format("%03d", i);
-			int year = rand.nextInt(3) + 2021;
-			int month = rand.nextInt(12) + 1;
-			int day = rand.nextInt(28) + 1;
-			Calendar cal = Calendar.getInstance();
-			cal.set(year, month-1, day);
-			Date date = cal.getTime();
-			
-			UserInfoDTO dto = UserInfoDTO.builder()
-					.username("m" + idnum)
-					.name(idnum + "번째 장원영")
-					.password("1")
-					.createAt(date)
-					.updateAt(date)
-					.build();
-			
-			userInfoService.testinsert(dto);
-			
-		}
-				
+		return "user service입니다" + env.getProperty("local.server.port");
 	}
-
 }
