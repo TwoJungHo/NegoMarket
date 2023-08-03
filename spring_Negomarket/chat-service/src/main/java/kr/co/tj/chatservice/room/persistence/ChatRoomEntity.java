@@ -1,9 +1,5 @@
 package kr.co.tj.chatservice.room.persistence;
 
-
-
-
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,7 +31,4 @@ public class ChatRoomEntity {
 	
 	private String username2;
 	
-		
-
-
 }

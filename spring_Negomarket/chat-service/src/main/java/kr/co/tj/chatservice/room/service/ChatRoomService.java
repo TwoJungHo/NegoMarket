@@ -1,7 +1,5 @@
 package kr.co.tj.chatservice.room.service;
 
-
-
 import java.util.List;
 import java.util.Map;
 
@@ -16,9 +14,5 @@ public interface ChatRoomService {
 	String delete(String title);
 
 	List<ChatRoomDTO> findRoomsByUsername(String username);
-
-
-
-	
 
 }

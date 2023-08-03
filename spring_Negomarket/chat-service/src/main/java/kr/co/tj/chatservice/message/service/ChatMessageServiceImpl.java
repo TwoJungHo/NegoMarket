@@ -34,7 +34,6 @@ public class ChatMessageServiceImpl implements ChatMessageService {
 		this.chatMessageRepository = chatMessageRepository;
 	}
 
-
 	@Override
 	@Transactional
 	public List<ChatMessageDTO> getMessageList(String roomTitle) {
@@ -53,16 +52,13 @@ public class ChatMessageServiceImpl implements ChatMessageService {
 					.build();
 			dtoList.add(dto);
 		}
-		
 		return dtoList;
-		
 	}
 	
 	
 	@Override
 	@Transactional
 	public void readMessage(Long id) {
-		
 		Optional<ChatMessageEntity> optional = chatMessageRepository.findById(id);
 		
 		if(!optional.isPresent()) {
@@ -79,7 +75,6 @@ public class ChatMessageServiceImpl implements ChatMessageService {
 				.build();
 		
 	messagingTemplate.convertAndSend("/sub/chatroom/read/" + chatMessageEntity.getRoomTitle(), readResponse);
-		
 	}
 	
 	
@@ -111,8 +106,5 @@ public class ChatMessageServiceImpl implements ChatMessageService {
 				.build();
 	
 	messagingTemplate.convertAndSend("/sub/chatroom/" + response.getRoomTitle(), response);
-	
-		
 	}
-	
 }

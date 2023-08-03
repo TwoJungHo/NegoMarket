@@ -11,8 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class ChatMessageReadStateResponse {
-
-	
 	private long id;
 	private boolean isRead;
 }

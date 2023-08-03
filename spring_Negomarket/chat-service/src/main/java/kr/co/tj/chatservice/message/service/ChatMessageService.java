@@ -12,6 +12,4 @@ public interface ChatMessageService {
 
 	List<ChatMessageDTO> getMessageList(String roomTitle);
 
-	
-
 }

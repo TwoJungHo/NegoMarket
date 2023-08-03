@@ -10,14 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class ChatRoomRequest {
-
-
-
 	
 	private String title;
-	
 	private String username1;
 	private String username2;
-	
 
 }

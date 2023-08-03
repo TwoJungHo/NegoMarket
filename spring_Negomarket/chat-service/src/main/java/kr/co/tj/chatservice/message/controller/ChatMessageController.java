@@ -1,8 +1,5 @@
 package kr.co.tj.chatservice.message.controller;
 
-
-
-
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -25,11 +22,6 @@ import kr.co.tj.chatservice.message.dto.ChatMessageRequest;
 import kr.co.tj.chatservice.message.dto.ChatMessageResponse;
 import kr.co.tj.chatservice.message.service.ChatMessageService;
 
-
-
-
-
-
 @RestController
 @RequestMapping("/chat-service")
 public class ChatMessageController {
@@ -44,7 +36,6 @@ public class ChatMessageController {
 		this.chatMessageService = chatMessageService;
 	}
 
-	
 	@GetMapping("/messagelist/{roomTitle}")
 	public ResponseEntity<?> getMessageList(@PathVariable("roomTitle") String roomTitle) {
 		
@@ -66,14 +57,11 @@ public class ChatMessageController {
 				
 		return ResponseEntity.ok().body(responseList);
 	}
-
-	
 	
 	@MessageMapping("/readmessage")
 	public void readMessage(Long id){
 		chatMessageService.readMessage(id);
 	}
-
 
 	@MessageMapping("/sendmessage")
 	public void message(@Header("Authorization") String bearerToken, ChatMessageRequest request) {
@@ -95,7 +83,5 @@ public class ChatMessageController {
 				.build();
 		
 		chatMessageService.saveAndSendMessage(dto);
-		
 	}
-
 }

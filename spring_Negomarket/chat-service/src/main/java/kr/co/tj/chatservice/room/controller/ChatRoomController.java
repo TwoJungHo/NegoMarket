@@ -47,8 +47,6 @@ public class ChatRoomController {
 	// 채팅방 생성 시도.
 	// RequestBody에 ChatRoomRequest를 받는 것 뿐만 아니라,
 	// RequestHeader에서 Authorization을 key로 하는 value인 {Bearer Token}을 받아옴.
-	// token을 디코딩해서 username을 추출할 것임.
-	
 	@PostMapping("/enter")
 	public ResponseEntity<?> insert(@RequestHeader("Authorization") String bearerToken,
 			@RequestBody ChatRoomRequest chatRoomRequest) {
@@ -63,8 +61,6 @@ public class ChatRoomController {
 				.parseClaimsJws(token)
 				.getBody()
 				.getSubject();
-		
-		
 		
 		String username1 = username;
 		String username2 = chatRoomRequest.getUsername2();
@@ -114,7 +110,6 @@ public class ChatRoomController {
 		map.put("isExist", true);
 
 		return ResponseEntity.ok().body(map);
-		
 	}
 
 	
@@ -131,7 +126,6 @@ public class ChatRoomController {
 		String encodedSecKey = Base64.getEncoder().encodeToString(secKey.getBytes());
 
 		String username;
-
 		try {
 			username = Jwts.parser()
 					.setSigningKey(encodedSecKey)
@@ -160,8 +154,6 @@ public class ChatRoomController {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 		}
 		
-		
-		
 		List<ChatRoomDTO> chatRoomDTOList = chatRoomService.findRoomsByUsername(username);
 		
 		if(chatRoomDTOList.size() > 0 ) {
@@ -180,7 +172,6 @@ public class ChatRoomController {
 			chatRoomResponseList.add(chatRoomResponse);
 			
 		}
-		
 		return ResponseEntity.ok().body(chatRoomResponseList);
 		}
 		
@@ -188,8 +179,6 @@ public class ChatRoomController {
 			return ResponseEntity.ok().body(new ArrayList<>());
 		}
 	}
-	
-	
 	
 	
 	@DeleteMapping("/delete")

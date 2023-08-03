@@ -30,7 +30,6 @@ public class ChatRoomServiceImpl implements ChatRoomService {
 	private ChatMessageRepository chatMessageRepository;
 	private SimpMessageSendingOperations messagingTemplate;
 
-
 	@Autowired
 	public ChatRoomServiceImpl(
 			ChatRoomRepository chatRoomRepository,
@@ -40,8 +39,6 @@ public class ChatRoomServiceImpl implements ChatRoomService {
 		this.chatRoomRepository = chatRoomRepository;
 		this.chatMessageRepository = chatMessageRepository;
 		this.messagingTemplate = messagingTemplate;
-
-		
 	}
 
 	@Override
@@ -59,10 +56,8 @@ public class ChatRoomServiceImpl implements ChatRoomService {
 		.username2(entity.getUsername2())
 		.build();
 		
-		
 		messagingTemplate.convertAndSend("/sub/chatroomnotify/" + username1, chatRoomResponse);
 		messagingTemplate.convertAndSend("/sub/chatroomnotify/" + username2, chatRoomResponse);
-
 
 		dto.setId(entity.getId());
 
@@ -103,7 +98,6 @@ public class ChatRoomServiceImpl implements ChatRoomService {
 		// 자바 컬렉션 프레임웍 자료형은 List를 정렬하기 위해
 		// Comparator 인터페이스를 구현하는 객체 생성. 메시지 발송 시각으로 비교.
 		Comparator<ChatMessageResponse> comparator = new Comparator<ChatMessageResponse>() {
-
 			@Override
 			public int compare(ChatMessageResponse res1, ChatMessageResponse res2) {
 				return res1.getSendAt().compareTo(res2.getSendAt());
@@ -120,8 +114,6 @@ public class ChatRoomServiceImpl implements ChatRoomService {
 		return map;
 	}
 	
-	
-	
 
 	@Transactional
 	@Override
@@ -129,10 +121,8 @@ public class ChatRoomServiceImpl implements ChatRoomService {
 		Optional<ChatRoomEntity> optional = chatRoomRepository.findByTitle(title);
 
 		if (!optional.isPresent()) {
-
 			throw new DataNotFoundException("삭제할 채팅방이 존재하지 않습니다.");
 		}
-		
 		
 		ChatRoomEntity entity = optional.get();
 		chatRoomRepository.delete(entity);
@@ -142,14 +132,11 @@ public class ChatRoomServiceImpl implements ChatRoomService {
 		for(ChatMessageEntity x : messageList) {
 			chatMessageRepository.delete(x);
 		}
-		
-
 		return "삭제 완료";
 	}
 
 	@Override
 	public List<ChatRoomDTO> findRoomsByUsername(String username) {
-		
 		
 		List<ChatRoomDTO> chatRoomDTOList = new ArrayList<>();
 		List<ChatRoomEntity> chatRoomEntityList = chatRoomRepository.findByUsername1ContainingOrUsername2Containing(username, username);
