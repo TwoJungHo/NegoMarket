@@ -112,11 +112,6 @@ function BoardUpdate() {
   modules.toolbar.handlers = { image: imageHandler }
 
 
-
-
-
-
-
   return (<>
     {board !== null && <>
       <div><input defaultValue={board.title} className='border' style={{width: '750px', height: '30px', marginTop: '0.5%'}} ref={title}></input>

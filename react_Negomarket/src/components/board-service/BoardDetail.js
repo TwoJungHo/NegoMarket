@@ -64,8 +64,6 @@ function openPopup(path) {
         </div> 
        </div>
 
-
-       
         {/* 지도 */}
         <p/>
         <div><KakaoMapTest longitude={board.sellInfoResponse.longitude} latitude={board.sellInfoResponse.latitude} /></div>

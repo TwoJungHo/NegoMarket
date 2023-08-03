@@ -252,7 +252,7 @@ public class SellController {
 				.latitude(sellInfoRequest.getLatitude())
 				.sellState(sellInfoRequest.getSellState())
 				.build();
-				
+		
 		infoDTO = sellInfoService.insert(infoDTO);
 		
 		SellInfoResponse infoResponse = SellInfoResponse.builder()

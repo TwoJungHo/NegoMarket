@@ -106,11 +106,6 @@ function BoardInsert() {
   modules.toolbar.handlers = { image: imageHandler }
 
 
-
-
-
-
-
   return (
     <div className='routes'>
       <div style={{width: '1080px', textAlign: 'center'}}>

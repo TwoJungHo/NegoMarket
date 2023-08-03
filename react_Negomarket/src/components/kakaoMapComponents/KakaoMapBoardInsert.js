@@ -49,7 +49,7 @@ function KakaoMapBoardInsert({ setPositionData }) {
       });
 
     setMap(kakaoMap);
-  }, []);
+  }, [setPositionData]);
 
 
 

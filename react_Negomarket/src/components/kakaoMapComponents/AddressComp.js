@@ -2,8 +2,6 @@ import React from "react";
 const { kakao } = window;
 
 function AddressComp(props) {
-  
-   
 
   function positionChg() {
     const x = props.add.x;
