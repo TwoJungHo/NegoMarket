@@ -48,10 +48,8 @@ function openPopup(path) {
           } else {buyer = mychat.username1}
         
           openPopup(`/chatwith/${buyer}`)} 
-          }><img src='/img/chatting.png' style={{widthd: '30px', height: '30px'}}/></button>
+          }><img src='/img/chatting.png' style={{widthd: '30px', height: '30px'}} alt='채팅이미지'/></button>
     </div>)}
-
-
     </div>
   )
 }

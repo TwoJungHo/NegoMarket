@@ -2,14 +2,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-function MySellComp({mySell}) {
+function MySellComp2({mySell}) {
 const handleError = (event) => {
 event.target.src = '/img/preview.png'
 }
 
 
   return (
-    <div style={{display: 'inline-flex', alignItems: 'center', width: '1080px', height: '160px', padding: '12px'}}>
+    <div style={{display: 'inline-flex', alignItems: 'center', width: '500px', height: '160px', padding: '12px'}}>
     <div className='imageBox-sm' style={{width: '150px', height: '150px'}}>
         <Link to={`/board/detail/${mySell.id}`}><img style={{width: '150px', height: '150px'}} src={`http://localhost:8000/sell-service/img/${mySell.id}`} onError={handleError}/></Link>
     </div>
@@ -21,4 +21,4 @@ event.target.src = '/img/preview.png'
   )
 }
 
-export default MySellComp
+export default MySellComp2

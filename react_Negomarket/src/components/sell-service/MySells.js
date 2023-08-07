@@ -12,7 +12,6 @@ function MySells() {
         `${API_URL}/sell-service/sells/mylist`
       );
       setMySellList(sellList)})();
-      
     }
   , []);
 
