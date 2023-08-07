@@ -4,7 +4,7 @@ import { API_URL } from "../../Constants";
 
 
 function Login() {
-  
+
   localStorage.removeItem('jwt');
 
   function onSubmitHandler(e) {
@@ -21,6 +21,7 @@ function Login() {
         localStorage.setItem("jwt", data.result.token);
         localStorage.setItem("longitude", data.result.longitude);
         localStorage.setItem("latitude", data.result.latitude);
+        localStorage.setItem("username", data.result.username);
         window.location.href = "/board/insert";
       }
     );

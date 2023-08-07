@@ -10,6 +10,7 @@ import BoardDetail from './components/board-service/BoardDetail';
 import SellRangedList from './components/sell-service/SellRangedList';
 import MySells from './components/sell-service/MySells';
 import MyChatList from './components/chat-service/MyChatList';
+import MemberDetail from './components/user-service/MemberDetail';
 
 function App() {
 
@@ -45,6 +46,7 @@ function HeaderController() {
         <Route path="/board/detail/:sellId" Component={BoardDetail}/>
         
         <Route path="/chatwith/:username" Component={ChatRoom}/>
+        <Route path="/users/:username" Component={MemberDetail}/>
 
         
       </Routes>

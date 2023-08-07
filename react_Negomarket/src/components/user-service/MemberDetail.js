@@ -1,43 +1,63 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { fetchFn } from "../../NetworkUtils";
+import { API_URL } from "../../Constants";
+import moment from "moment/moment";
 
 function MemberDetail() {
   const [member, setMember] = useState(null);
+  const [editing, setEditing] = useState(false); 
+  const [newName, setNewName] = useState("");
 
   const username = useParams().username;
 
+  const userPicture = `${API_URL}/user-service/pic/${username}`
+  
   useEffect(() => {
     fetchFn(
       "GET",
-      `http://localhost:9005/api/member/name/${username}`,
+      `http://localhost:8000/user-service/users/${username}`,
       null
     ).then((data) => {
       console.log(data);
-      setMember(data.result);
+      setMember(data);
+      setNewName(data.name);
     });
   }, [username]);
 
-  function logout(){
-    localStorage.setItem("jwt", null);
-    window.location.href = "/"
-  }
+  const handleEditClick = () => {
+    setEditing(true);
+  };
+
+  const handleSaveClick = () => {
+    fetchFn(
+      "PUT",
+      `http://localhost:8000/user-service/users/${username}`,
+      { name: newName } 
+    ).then(() => {
+      setEditing(false); 
+    });
+  };
 
   return (
     <div>
-      {member !== null && (<>
-        <div>
-          <p className="squaretxt2"><span className="squaretxt1">id</span>&nbsp;{member.id} </p>
-          <p className="squaretxt2"><span className="squaretxt1">username</span>&nbsp;{member.username}</p>
-          <p className="squaretxt2"><span className="squaretxt1">name</span>&nbsp;{member.name}</p>
-          <p className="squaretxt2"><span className="squaretxt1">가입일</span>&nbsp;{member.createDate}</p>
-          <p className="squaretxt2"><span className="squaretxt1">최종 수정일</span>&nbsp;{member.updateDate}</p>
-        </div>
-        <Link to={"/"} className="squaretxt3">홈으로</Link>
-        <Link to={`/member/update/${username}`} className="squaretxt3">수정</Link>
-        <Link to={`/member/delete/${username}`} className="squaretxt3">삭제</Link>
-        <Link to={"/member/insert"} className="squaretxt3">등록</Link>
-        <Link onClick={logout} className="squaretxt3">로그 아웃</Link>
+      <img
+        style={{ height: 'auto', width: '200px', display: 'inline-block', marginLeft: '10%'}}
+        src={userPicture ? userPicture : '/img/nego1.png'} alt="preview"/>
+      {member !== null && (
+        <>
+          <div>
+            {editing ? (
+              <input type="text" value={newName} onChange={(e) => setNewName(e.target.value)}/>)
+              :( <p><span className="squaretxt1">이름 : </span>{member.username}</p>)}
+              <p><span className="squaretxt1" style={{fontSize: 50}}>아이디 : </span>{member.name}</p>
+              <p><span className="squaretxt1">가입일</span>{moment(member.createAt).format("YYYY-MM-DD")}</p>
+              <p><span className="squaretxt1">회원 수정일</span>{moment(member.updateAt).format("YYYY-MM-DD")}</p>
+          </div>
+          {editing ? (
+              <button onClick={handleSaveClick}>프로필 저장</button>) : (
+              <button onClick={handleEditClick}>프로필 수정</button>
+          )}
         </>
       )}
     </div>

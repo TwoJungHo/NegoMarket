@@ -28,23 +28,14 @@ function BoardInsert() {
   const [longitude, setLongitude] = useState();
   const [sellState, setSellState] = useState();
 
-
   const setPositionData = { setLatitude, setLongitude }
   const setSellData = { setImgFile, setProductName, setPrice, setSellState }
-
-
-
-
-
-
 
   function saveButtonClickHandler() {
     const formData = new FormData();
     const htmlString = editor.current.getEditor().root.innerHTML;
     const deltaString = JSON.stringify(editor.current.getEditor().getContents());
     const delta = JSON.parse(deltaString);
-    console.log(editor.current.getEditor().getContents());
-    console.log(delta);
     formData.append("title", title.current.value);
     formData.append("imgFile", imgFile);
     formData.append("productName", productName);
@@ -53,23 +44,15 @@ function BoardInsert() {
     formData.append("longitude", longitude);
     formData.append("sellState", "ON_SALE");
     formData.append("htmlString", htmlString);
-    //formData.append("deltaString", deltaString);
+    formData.append("deltaString", `[${JSON.stringify(delta.ops[0])}]`);
 
 
-    console.log(formData.get("title"));
-    console.log(formData.get("imgFile"));
-    console.log(formData.get("productName"));
-    console.log(formData.get("price"));
-    console.log(formData.get("latitude"));
-    console.log(formData.get("longitude"));
-    console.log(formData.get("sellState"));
-    console.log(formData.get("htmlString"));
+    
+    console.log(`[${JSON.stringify(delta.ops[0])}]`);
 
     fetch_multiForm("POST", `${API_URL}/board-service/boards`, formData)
 
   }
-
-
 
   const uploadImgCallBack = async (file) => {
     const formData = new FormData();

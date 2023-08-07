@@ -62,7 +62,7 @@ export async function fetch_General(method, url, json_Obj) {
   
       if (!response.ok) { throw new Error("fetch failed"); }
   
-      window.location.href = "/login"
+      //window.location.href = "/login"
     
     } catch (error) {console.log(error.message);}
   }

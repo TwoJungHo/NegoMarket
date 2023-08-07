@@ -123,7 +123,7 @@ function BoardUpdate() {
       <p />
       <div style={{ display: 'inline-block', width: '600px', height: '20px' }}><KakaoMapUpdate getPositionData={board.sellInfoResponse} setPositionData={setPositionData} /></div>
       <p />
-
+      
       <div ><ReactQuill
         value={board.htmlString}
         ref={editor}

@@ -30,6 +30,7 @@ function Navbar() {
       <Link className="link" to={"/inrangeselllist"}>우리동네 네고!</Link>
       <Link className="link" to={"/myselllist"}>나의 판매 목록</Link>
       <Link className="link" to={"/mychatlist"}>나의 채팅 목록</Link>
+      <Link className="link" to={`/users/${localStorage.getItem('username')}`}>나의 프로필</Link>
       
       {isLoggedIn ? (
       <>
