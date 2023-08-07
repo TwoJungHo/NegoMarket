@@ -4,7 +4,8 @@ import { API_URL } from "../../Constants";
 
 
 function Login() {
-  localStorage.setItem("jwt", null);
+  
+  localStorage.removeItem('jwt');
 
   function onSubmitHandler(e) {
     e.preventDefault();

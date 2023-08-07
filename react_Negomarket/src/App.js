@@ -34,6 +34,7 @@ function HeaderController() {
       <Routes>
 
         <Route path="/login" Component={Login}/>
+        
         <Route path="/signup" Component={MemberInsert}/>
 
         <Route path="/mychatlist" Component={MyChatList}/>
