@@ -7,6 +7,8 @@ spring:
       server:
         git:
           uri: https://github.com/TwoJungHo/NegoMarket.git
+          username: TwoJungHo
+          password: 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
   application:
     name: config-service
 
