@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchFn } from "../../NetworkUtils";
 import { API_URL } from "../../Constants";
 import moment from "moment/moment";
 import { fetch_General } from "../../networkFns/fetchFns";
 import MySellComp2 from "../sell-service/MySellComp copy";
+import KakaoMapSignUp from "../kakaoMapComponents/KakaoMapSignUp";
 
 function MemberDetail() {
   const [member, setMember] = useState(null);
@@ -13,8 +14,14 @@ function MemberDetail() {
   const [newName, setNewName] = useState("");
   const [mySellList, setMySellList] = useState([]);
   const [myChatList, setMyChatList] = useState([]);
+  const [latitude, setLatitude] = useState();
+  const [longitude, setLongitude] = useState();
+  const setPositionData = { setLatitude, setLongitude };
 
   const username = useParams().username;
+  const password = useRef();
+  const password2 = useRef();
+  const orgPassword = useRef();
 
   const userPicture = `${API_URL}/user-service/pic/${username}`
   
@@ -36,7 +43,22 @@ function MemberDetail() {
   };
 
   const handleSaveClick = () => {
-    
+      const dto = {
+      username : username,
+      password : password.current.value,
+      password2 : password2.current.value,
+      orgPassword : orgPassword.current.value,
+      longitude : longitude,
+      latitude : latitude,
+      name : newName
+      }
+      fetch_General("PUT", `${API_URL}/user-service/users`, dto)
+      .then((data)=>{
+        if (data === undefined) {
+          return;
+        }
+      alert("수정완료")
+      })
       setEditing(false); 
     
   };
@@ -60,7 +82,6 @@ function MemberDetail() {
         "GET",
         `${API_URL}/chat-service/findrooms`
       );
-      console.log(chatList)
       setMyChatList(chatList)})();
     setSellview(false); 
 };
@@ -76,21 +97,24 @@ function openPopup(path) {
       {member !== null && (
         <>
         {editing ? (
-              <button className = 'btn-lg' style={{fontSize: 20, marginLeft: "45em"}} onClick={handleSaveClick}>프로필 저장</button>) : (
+              <button className='btn-lg' style={{ fontSize: 20, marginLeft: "45em" }} onClick={handleSaveClick}>프로필 저장/취소</button>
+              ) : (
                 <button className = 'btn-lg' style={{fontSize: 20, marginLeft: "45em"}} onClick={handleEditClick}>프로필 수정</button>
           )}<br/>
           <img
         style={{ height: 'auto', width: '200px', display: 'inline-block'}}
         src={userPicture ? userPicture : '/img/nego1.png'} alt="preview"/>
           <div>
-              <p style={{fontSize: 50}}>아이디 : {member.name}</p>
+              <p style={{fontSize: 50}}>아이디 : {member.username}</p>
             {editing ? (
               // eslint-disable-next-line jsx-a11y/anchor-is-valid
               <><a style={{fontSize: 50}}>이름 : </a><input style={{ fontSize: 50 }} type="text" value={newName} onChange={(e) => setNewName(e.target.value)} /><br/>
-              <input style={{ fontSize: 50 }} type="text" placeholder="비밀번호" /><br/>
-              <input style={{ fontSize: 50 }} type="text" placeholder="비밀번호확인" />
+              <input style={{ fontSize: 50 }} type="text" placeholder="기존비밀번호" ref={orgPassword}/><br/>
+              <input style={{ fontSize: 50 }} type="text" placeholder="비밀번호" ref={password}/><br/>
+              <input style={{ fontSize: 50 }} type="text" placeholder="비밀번호확인" ref={password2}/>
+              <div><KakaoMapSignUp setPositionData={setPositionData} /></div>
               </>
-              ):( <><p style={{ fontSize: 50 }}>이름 : {member.username}</p>
+              ):( <><p style={{ fontSize: 50 }}>이름 : {member.name}</p>
               <p style={{ fontSize: 50 }}>가입일 : {moment(member.createAt).format("YYYY-MM-DD")}</p>
               <p style={{ fontSize: 50 }}>회원 수정일 : {moment(member.updateAt).format("YYYY-MM-DD")}</p>
 

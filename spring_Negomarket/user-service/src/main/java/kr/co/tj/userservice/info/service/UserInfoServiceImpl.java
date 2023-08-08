@@ -113,13 +113,15 @@ public class UserInfoServiceImpl implements UserInfoService {
 	@Transactional
 	public UserInfoDTO updateUser(UserInfoDTO userInfoDTO) {
 		Date date = new Date();
-
-		UserInfoDTO orgDTO = getUser(userInfoDTO.getUsername());
-
+		
+		String encPassword = passwordEncoder.encode(userInfoDTO.getPassword());
+		
+		//UserInfoDTO orgDTO = getUser(userInfoDTO.getUsername());
+		UserInfoDTO orgDTO = findPassword(userInfoDTO.getUsername());
 		UserInfoEntity entity = UserInfoEntity.builder()
 				.id(orgDTO.getId())
 				.username(orgDTO.getUsername())
-				.password(userInfoDTO.getPassword())
+				.password(encPassword)
 				.name(userInfoDTO.getName())
 				.longitude(userInfoDTO.getLongitude())
 				.latitude(userInfoDTO.getLatitude())
@@ -129,10 +131,29 @@ public class UserInfoServiceImpl implements UserInfoService {
 
 		entity = userInfoRepository.save(entity);
 		
-		orgDTO.toUserDTO(entity);
-
+		orgDTO = findPassword(entity.getUsername());
+		
 		return orgDTO;
 
+	}
+	
+	@Override
+	public UserInfoDTO findPassword(String username) {
+		
+		Optional<UserInfoEntity> optional = userInfoRepository.findByUsername(username);
+		UserInfoEntity entity = optional.get();
+		System.out.println(entity.getId());
+		UserInfoDTO dto = UserInfoDTO.builder()
+				.id(entity.getId())
+				.username(entity.getUsername())
+				.password(entity.getPassword())
+				.name(entity.getName())
+				.longitude(entity.getLongitude())
+				.latitude(entity.getLatitude())
+				.createAt(entity.getCreateAt())
+				.updateAt(entity.getUpdateAt())
+				.build();
+		return dto;
 	}
 
 	// 삭제
@@ -185,4 +206,6 @@ public class UserInfoServiceImpl implements UserInfoService {
 		userInfoDTO.setUpdateAt(date);
 		return userInfoDTO;
 	}
+
+	
 }

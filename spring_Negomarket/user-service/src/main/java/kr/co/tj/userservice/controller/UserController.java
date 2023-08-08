@@ -15,6 +15,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -50,13 +52,15 @@ public class UserController {
 	private Environment env;
 	private UserInfoService userInfoService;
 	private UserPicService userPicService;
+	private BCryptPasswordEncoder passwordEncoder;
 	
 	@Autowired
-	public UserController(Environment env, UserInfoService userInfoService, UserPicService userPicService) {
+	public UserController(Environment env, UserInfoService userInfoService, UserPicService userPicService, BCryptPasswordEncoder passwordEncoder) {
 		super();
 		this.env = env;
 		this.userInfoService = userInfoService;
 		this.userPicService = userPicService;
+		this.passwordEncoder = passwordEncoder;
 	}
 	
 	@GetMapping("/pic/{username}")
@@ -185,22 +189,26 @@ public class UserController {
 	@PutMapping("/users")
 	public ResponseEntity<?> updateUser(@RequestBody UserInfoRequest userInfoRequest) {
 		String orgPassword = userInfoRequest.getOrgPassword();
-		String dbPassword = userInfoService.getUser(userInfoRequest.getUsername()).getPassword();
-	
-			if (orgPassword == null || !orgPassword.equals(dbPassword)) {
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("비밀번호를 확인하세요");
+		UserInfoDTO dto = userInfoService.findPassword(userInfoRequest.getUsername());
+			if (orgPassword == null || !passwordEncoder.matches(orgPassword, dto.getPassword())) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("비밀번호를 확인하세요1");
 			}
 
 			if (!userInfoRequest.getPassword().equals(userInfoRequest.getPassword2())) {
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("비밀번호를 확인하세요");
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("비밀번호를 확인하세요2");
 			}
-			
-			UserInfoDTO userInfoDTO = UserInfoDTO.toUserDTO(userInfoRequest);
+			UserInfoDTO userInfoDTO = UserInfoDTO.builder()
+					.password(userInfoRequest.getPassword())
+					.name(userInfoRequest.getName())
+					.username(userInfoRequest.getUsername())
+					.latitude(userInfoRequest.getLatitude())
+					.longitude(userInfoRequest.getLongitude())
+					.build();
 
 			userInfoDTO = userInfoService.updateUser(userInfoDTO);
-			UserInfoResponse userInfoResponse = userInfoDTO.toUserResponse();
-			
-			return ResponseEntity.status(HttpStatus.OK).body(userInfoResponse);
+			//UserInfoResponse userInfoResponse = userInfoDTO.toUserResponse();
+			System.out.println(userInfoDTO.getName());
+			return ResponseEntity.status(HttpStatus.OK).body(userInfoDTO);
 	}
 
 	// 회원탈퇴

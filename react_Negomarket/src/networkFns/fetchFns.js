@@ -66,4 +66,3 @@ export async function fetch_General(method, url, json_Obj) {
     
     } catch (error) {console.log(error.message);}
   }
-

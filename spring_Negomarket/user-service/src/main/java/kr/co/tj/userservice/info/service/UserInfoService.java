@@ -3,6 +3,7 @@ package kr.co.tj.userservice.info.service;
 import java.util.List;
 
 import kr.co.tj.userservice.info.dto.UserInfoDTO;
+import kr.co.tj.userservice.info.persistence.UserInfoEntity;
 
 public interface UserInfoService {
 	
@@ -15,6 +16,7 @@ public interface UserInfoService {
 	UserInfoDTO setDate(UserInfoDTO userInfoDTO);
 	
 	boolean passwordValidation(String username, String password);
+	UserInfoDTO findPassword(String username);
 	
 	
 

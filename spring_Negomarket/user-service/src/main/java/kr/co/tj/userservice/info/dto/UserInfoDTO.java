@@ -70,7 +70,6 @@ public class UserInfoDTO implements Serializable {
 		this.name = userInfoEntity.getName();
 		this.createAt = userInfoEntity.getCreateAt();
 		this.updateAt = userInfoEntity.getUpdateAt();
-
 		return this;
 	}
 
