@@ -37,6 +37,9 @@ function MemberInsert() {
     console.log(formData.get("name"));
 
     fetch_multiForm("POST", "http://localhost:8000/user-service/users", formData)
+    .then((data) => {
+    window.location.href = "/"
+    })
     
   }
 

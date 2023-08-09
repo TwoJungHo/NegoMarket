@@ -36,21 +36,27 @@ function BoardInsert() {
     const htmlString = editor.current.getEditor().root.innerHTML;
     const deltaString = JSON.stringify(editor.current.getEditor().getContents());
     const delta = JSON.parse(deltaString);
-    formData.append("title", title.current.value);
-    formData.append("imgFile", imgFile);
-    formData.append("productName", productName);
-    formData.append("price", price);
-    formData.append("latitude", latitude);
-    formData.append("longitude", longitude);
-    formData.append("sellState", "ON_SALE");
-    formData.append("htmlString", htmlString);
-    formData.append("deltaString", `[${JSON.stringify(delta.ops[0])}]`);
-
-
-    
-    console.log(`[${JSON.stringify(delta.ops[0])}]`);
-
-    fetch_multiForm("POST", `${API_URL}/board-service/boards`, formData)
+    if (
+      title.current.value && imgFile && productName && price && latitude && longitude && htmlString
+    ) {
+      formData.append("title", title.current.value);
+      formData.append("imgFile", imgFile);
+      formData.append("productName", productName);
+      formData.append("price", price);
+      formData.append("latitude", latitude);
+      formData.append("longitude", longitude);
+      formData.append("sellState", "ON_SALE");
+      formData.append("htmlString", htmlString);
+      formData.append("deltaString", `[${JSON.stringify(delta.ops[0])}]`);
+  
+      fetch_multiForm("POST", `${API_URL}/board-service/boards`, formData)
+      .then(data =>{
+      window.location.href = `/board/detail/${data.sellId}`
+      })
+    } else {
+      alert("모든 필수 항목을 작성해주세요")
+      console.log("모든 필수 항목을 작성해주세요");
+    }
 
   }
 
@@ -92,7 +98,7 @@ function BoardInsert() {
   return (
     <div className='routes'>
       <div style={{width: '1080px', textAlign: 'center'}}>
-      <input id='board-insert-title' placeholder='제목' ref={title}></input>
+      <input id='board-insert-title' placeholder='(*필수)제목' ref={title}></input>
       <button className = 'btn-lg' onClick={saveButtonClickHandler}>등록</button>
       </div>
         

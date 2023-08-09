@@ -12,26 +12,14 @@ useEffect(() => {
           `${API_URL}/chat-service/findrooms`
         );
         setMyChatList(chatList)})();
-
-        
-
-
-
-
 }, []
-
 );
-
-console.log(myChatList);
 
 function openPopup(path) {
     const newWindow = window.open(path, '_blank', 'width=560,height=700,noopener,noreferrer');
     if (newWindow) newWindow.opener = null;
   }
-
-
-
-
+  
   return (
     <div>
 {myChatList.length !== 0 && myChatList.map(

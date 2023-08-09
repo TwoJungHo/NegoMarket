@@ -47,8 +47,8 @@ function SellInsert({ setSellData }) {
                 <div className='components-inputs' style={{maxHeight: '300px', width: '550px', marginTop: '3em'}}>
                   
                     <input type="file" ref={imgFileInputRef} onChange={handleInputChange}></input><br/>
-                    <input type="text" ref={productNameRef} onChange={handleInputChange} placeholder='상품명'></input><br/>
-                    <input type="text" ref={priceRef} onChange={handleInputChange} placeholder='가격'></input><br/>
+                    <input type="text" ref={productNameRef} onChange={handleInputChange} placeholder='(*필수)상품명'></input><br/>
+                    <input type="text" ref={priceRef} onChange={handleInputChange} placeholder='(*숫자만)가격'></input><br/>
                            
                 </div>
             

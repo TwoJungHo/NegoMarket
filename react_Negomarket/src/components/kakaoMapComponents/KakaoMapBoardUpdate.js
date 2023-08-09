@@ -1,13 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
-import AddressComp from "./AddressComp";
+import React, { useEffect, useRef, useState } from 'react'
+import AddressComp from './AddressComp';
+
 const { kakao } = window;
 
 let geocoder =  new kakao.maps.services.Geocoder();
 let marker;
 
-function KakaoMapSignUp({ setPositionData }) {
- 
-  const [map, setMap] = useState(null);
+function KakaoMapBoardUpdate({ setPositionData }) {
+
+    const [map, setMap] = useState(null);
   const [addArr, setAddArr] = useState([]);
 
   const inputAddress = useRef();
@@ -28,7 +29,7 @@ function clickSearchEvent(){
   useEffect(() => {
     let latlng;
     const container = document.getElementById("kmap");
-    const options = { center: new kakao.maps.LatLng(33.450701, 126.570667) };
+    const options = { center: new kakao.maps.LatLng(localStorage.getItem("latitude"), localStorage.getItem("longitude"))};
     let kakaoMap = new kakao.maps.Map(container, options);
     marker = new kakao.maps.Marker({position: kakaoMap.getCenter()});
    
@@ -42,18 +43,10 @@ function clickSearchEvent(){
       marker.setPosition(latlng);
       setPositionData.setLatitude(latlng.Ma);
       setPositionData.setLongitude(latlng.La);
-      console.log(latlng);
-      console.log("Lat: " + latlng.Ma);
-      console.log("Lng :" + latlng.La);
-
     });
     
     setMap(kakaoMap);
-  }, [setPositionData]);
-
-
-
-
+  }, []);
   return (
     <div>
       
@@ -62,7 +55,7 @@ function clickSearchEvent(){
       <input  className='border' style={{display: 'inline-block', width: '495px', height: '30px'}} ref={inputAddress} placeholder="거주지 선택                                           ex) 서울특별시 강남구 한남동"/><button className="button" onClick={clickSearchEvent}>검색</button>
       <div>{addArr.length > 0 && addArr.map((x, index) => <AddressComp key={index} map={map} marker={marker} add={x}/>)}</div>
     </div>
-  );
+  )
 }
 
-export default KakaoMapSignUp;
+export default KakaoMapBoardUpdate

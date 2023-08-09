@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchFn } from "../../NetworkUtils";
@@ -5,7 +6,7 @@ import { API_URL } from "../../Constants";
 import moment from "moment/moment";
 import { fetch_General } from "../../networkFns/fetchFns";
 import MySellComp2 from "../sell-service/MySellComp copy";
-import KakaoMapSignUp from "../kakaoMapComponents/KakaoMapSignUp";
+import KakaoMapBoardUpdate from "../kakaoMapComponents/KakaoMapBoardUpdate";
 
 function MemberDetail() {
   const [member, setMember] = useState(null);
@@ -42,6 +43,9 @@ function MemberDetail() {
     setEditing(true);
   };
 
+  const handleCanleClick = () => {
+    setEditing(false)}
+
   const handleSaveClick = () => {
       const dto = {
       username : username,
@@ -52,19 +56,25 @@ function MemberDetail() {
       latitude : latitude,
       name : newName
       }
-      fetch_General("PUT", `${API_URL}/user-service/users`, dto)
-      .then((data)=>{
-        if (data === undefined) {
-          return;
-        }
-      alert("수정완료")
-      })
-      setEditing(false); 
-    
+
+      if(password && password2 && orgPassword && longitude && latitude && newName){
+        fetch_General("PUT", `${API_URL}/user-service/users`, dto)
+        .then((data)=>{
+          if (data === undefined) {
+            return;
+          }
+          console.log(data)
+        localStorage.setItem("latitude", `${data.latitude}`)
+        localStorage.setItem("longitude", `${data.longitude}`)
+        alert("수정완료")
+        window.location.reload();
+        })
+      } else{
+        alert("모든 필수 항목을 작성해주세요")
+      }
   };
 
   const SellListView = () => {
-    
     setSellview(true); 
     /* 나의 판매목록 가져오기 */
     (async () => {
@@ -93,41 +103,59 @@ function openPopup(path) {
 
   return (
     
-    <div>
-      {member !== null && (
-        <>
-        {editing ? (
-              <button className='btn-lg' style={{ fontSize: 20, marginLeft: "45em" }} onClick={handleSaveClick}>프로필 저장/취소</button>
-              ) : (
-                <button className = 'btn-lg' style={{fontSize: 20, marginLeft: "45em"}} onClick={handleEditClick}>프로필 수정</button>
-          )}<br/>
+<div>
+  {member !== null && (
+    <>
+      {/* 기본 정보 */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+        <div>
           <img
-        style={{ height: 'auto', width: '200px', display: 'inline-block'}}
-        src={userPicture ? userPicture : '/img/nego1.png'} alt="preview"/>
-          <div>
-              <p style={{fontSize: 50}}>아이디 : {member.username}</p>
-            {editing ? (
-              // eslint-disable-next-line jsx-a11y/anchor-is-valid
-              <><a style={{fontSize: 50}}>이름 : </a><input style={{ fontSize: 50 }} type="text" value={newName} onChange={(e) => setNewName(e.target.value)} /><br/>
-              <input style={{ fontSize: 50 }} type="text" placeholder="기존비밀번호" ref={orgPassword}/><br/>
-              <input style={{ fontSize: 50 }} type="text" placeholder="비밀번호" ref={password}/><br/>
-              <input style={{ fontSize: 50 }} type="text" placeholder="비밀번호확인" ref={password2}/>
-              <div><KakaoMapSignUp setPositionData={setPositionData} /></div>
-              </>
-              ):( <><p style={{ fontSize: 50 }}>이름 : {member.name}</p>
-              <p style={{ fontSize: 50 }}>가입일 : {moment(member.createAt).format("YYYY-MM-DD")}</p>
-              <p style={{ fontSize: 50 }}>회원 수정일 : {moment(member.updateAt).format("YYYY-MM-DD")}</p>
+            style={{ height: 'auto', width: '300px', display: 'inline-block' }}
+            src={userPicture ? userPicture : '/img/nego1.png'} alt="preview"
+          />
+        </div>
+        {editing? (
+         <>
+         <div style={{textAlign: 'right'}}>
+         <input style={{ fontSize: 50 }} type="text" placeholder="(*필수)닉네임" value={newName} onChange={(e) => setNewName(e.target.value)} /><br/>
+         <input style={{ fontSize: 50 }} type="text" placeholder="(*필수)기존비밀번호" ref={orgPassword}/><br/>
+         <input style={{ fontSize: 50 }} type="text" placeholder="(*필수)비밀번호" ref={password}/><br/>
+         <input style={{ fontSize: 50 }} type="text" placeholder="(*필수)비밀번호확인" ref={password2}/>
+         </div>
+         </>
+        ):<div style={{ textAlign: 'right' }}>
+        <p style={{ fontSize: 50 }}>아이디 : {member.username}</p>
+        <p style={{ fontSize: 50 }}>닉네임 : {editing ? <input style={{ fontSize: 50 }} type="text" value={newName} onChange={(e) => setNewName(e.target.value)} /> : member.name}</p>
+        <p style={{ fontSize: 50 }}>가입일 : {moment(member.createAt).format("YYYY-MM-DD")}</p>
+        <p style={{ fontSize: 50}}>회원 수정일 : {moment(member.updateAt).format("YYYY-MM-DD")}</p>
+      </div>}
+        
+      </div>
 
-              <button className = 'btn-lg' style={{fontSize: 20}} onClick={SellListView}>판매목록 보기</button>
-              <button className = 'btn-lg' style={{fontSize: 20}} onClick={MyChatView}>채팅목록 보기</button>
+      {editing ? (
+        <>
+          <div><KakaoMapBoardUpdate setPositionData={setPositionData} /></div>
+          <button className='btn-lg' style={{ fontSize: 20, marginLeft: "830px" }} onClick={handleSaveClick}>프로필 저장</button>
+          <button className='btn-lg' style={{ fontSize: 20, marginLeft: "20px" }} onClick={handleCanleClick}>프로필 취소</button>
+        </>
+      ) : (
+        <>
+        <button className='btn-lg' style={{ fontSize: 20, marginLeft: "45em" }} onClick={handleEditClick}>프로필 수정</button>
 
-              {sellview? (
-              <div className="routes">
-              {mySellList !==undefined && mySellList !== null && mySellList.length > 0 &&
-               mySellList.map((mySell, index) => <MySellComp2 key={index} mySell={mySell}/>)}
-           </div>
-              ): 
-              <div>
+         {/* 판매목록 및 채팅목록 보기 버튼 */}
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+      <button className='btn-lg' style={{ fontSize: 20, alignItems: "center" }} onClick={SellListView}>판매목록 보기</button>
+      <button className='btn-lg' style={{ fontSize: 20, alignItems: "center", marginLeft: '20px' }} onClick={MyChatView}>채팅목록 보기</button>
+      </div>
+
+      {/* 판매목록 또는 채팅목록 */}
+      {sellview ? (
+        <div className="routes" >
+          {mySellList !== undefined && mySellList !== null && mySellList.length > 0 &&
+            mySellList.map((mySell, index) => <MySellComp2 key={index} mySell={mySell} />)}
+        </div>
+      ) :
+       <div>
               {myChatList.length !== 0 && myChatList.map(
                   (mychat, index) => 
                   <div key={index}>
@@ -146,12 +174,14 @@ function openPopup(path) {
                         }><img src='/img/chatting.png' style={{widthd: '30px', height: '30px'}} alt="채팅이미지"/></button>
                   </div>)}
                   </div>
-              }</>
-              )}
-          </div>
-        </>
+     }
+    </>
       )}
-    </div>
+      <br />
+    </>
+  )}
+</div>
+
   );
 }
 

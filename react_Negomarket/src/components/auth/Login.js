@@ -6,6 +6,9 @@ import { API_URL } from "../../Constants";
 function Login() {
 
   localStorage.removeItem('jwt');
+  localStorage.removeItem('longitude');
+  localStorage.removeItem('latitude');
+  localStorage.removeItem('username');
 
   function onSubmitHandler(e) {
     e.preventDefault();
