@@ -92,7 +92,16 @@ function MemberDetail() {
         "GET",
         `${API_URL}/chat-service/findrooms`
       );
+
       setMyChatList(chatList)})();
+
+        fetch_General(
+          "GET", `${API_URL}/chat-service/messagelist/${myChatList.title}`)
+          .then(data => {
+            console.log(data);
+    
+          })
+         
     setSellview(false); 
 };
 
