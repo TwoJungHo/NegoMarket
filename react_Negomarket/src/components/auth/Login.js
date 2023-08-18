@@ -25,7 +25,8 @@ function Login() {
         localStorage.setItem("longitude", data.result.longitude);
         localStorage.setItem("latitude", data.result.latitude);
         localStorage.setItem("username", data.result.username);
-        window.location.href = "/board/insert";
+        sessionStorage.setItem("username", data.result.username);
+        window.location.href = "/";
       }
     );
   }

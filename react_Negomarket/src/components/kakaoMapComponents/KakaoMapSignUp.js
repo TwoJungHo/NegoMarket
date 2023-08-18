@@ -49,7 +49,7 @@ function clickSearchEvent(){
     });
     
     setMap(kakaoMap);
-  }, [setPositionData]);
+  }, []);
 
 
 

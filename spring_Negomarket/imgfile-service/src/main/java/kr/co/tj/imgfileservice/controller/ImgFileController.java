@@ -53,7 +53,6 @@ public class ImgFileController {
 			map.put("result", "업로드 과정에서 문제 발생");
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(map);
 		}
-
 	}
 	
 	@GetMapping("/getimgdata")
