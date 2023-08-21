@@ -10,23 +10,34 @@ spring:
     username: guest
     password: guest
     
-  h2: # h2 데이터베이스 설정
-    console:
-      enabled: true # 브라우저에에서 콘솔을 볼 수 있게 하겠다.
-      settings:
-        web-allow-others: true
-      path: /h2-console # url
-      
+#  h2: # h2 데이터베이스 설정
+#    console:
+#      enabled: true # 브라우저에에서 콘솔을 볼 수 있게 하겠다.
+#      settings:
+#        web-allow-others: true
+#      path: /h2-console # url
+#      
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: true
+#
+#  datasource:
+#    driver-class-name: org.h2.Driver
+#    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1
+#    username: sa
+#    password: 
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/negomarket?serverTimezone=Asia/Seoul
+    username: tj705
+    password: tj705
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
-
-  datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1
-    username: sa
-    password: 
+    generate-ddl: true
       
 eureka:
   instance:

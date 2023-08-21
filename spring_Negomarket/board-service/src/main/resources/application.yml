@@ -27,10 +27,10 @@ spring:
     generate-ddl: true
       
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1
-    username: sa
-    password: 
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/negomarket?serverTimezone=Asia/Seoul
+    username: tj705
+    password: tj705
       
 eureka:
   instance:

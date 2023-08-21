@@ -1,5 +1,5 @@
 server:
-  port: 0 # port번호를 지정하지 않고 사용할 수 있는 port번호를 임의로 설정해라. 0번을 쓰겠다는 말이 아님!
+  port: 0
   
 spring:
   application:
@@ -9,26 +9,37 @@ spring:
     port: 5672
     username: guest
     password: guest
-  
-  h2: # h2 데이터베이스. 내장형이라서 어플리케이션 도메인, 포트 그대로 사용함.
-    console:
-      enabled: true # 브라우저에서 콘솔을 볼 수 있게 하겠다.
-      settings:
-        web-allow-others: true
-      path: /h2-console # url
+
+# H2 데이터베이스 설정 주석 처리
+#  h2:
+#    console:
+#      enabled: true
+#      settings:
+#        web-allow-others: true
+#      path: /h2-console
+#  datasource:
+#    driver-class-name: org.h2.Driver
+#    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1
+#    username: sa
+#    password:
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: true
+#    generate-ddl: true
+
+# MySQL 데이터베이스 설정 추가
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1
-    username: sa
-    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/negomarket?serverTimezone=Asia/Seoul
+    username: tj705
+    password: tj705
   jpa:
     hibernate:
       ddl-auto: update
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
     generate-ddl: true
-      
+
 eureka:
   instance:
     prefer-ip-address: true
@@ -39,7 +50,6 @@ eureka:
     fetch-registry: true 
     service-url:
       defaultZone: http://127.0.0.1:8761/eureka 
-
 
 logging:
   level:

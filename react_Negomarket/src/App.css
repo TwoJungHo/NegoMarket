@@ -478,3 +478,15 @@ color: rgb(241, 239, 70);
 
 
 }
+
+.image-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#scrolling-image {
+  max-width: 50px;
+  height: auto;
+}
