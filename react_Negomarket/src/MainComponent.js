@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 function MainComponent() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const imageNames = ['nego1.png', 'negomain.png', 'preview.png']; // 이미지 파일명 배열
+  const imageNames = ['restore.jpg', 'negomain.png', 'preview.png']; // 이미지 파일명 배열
   const imageBaseUrl = '/img/'; // 이미지가 저장된 기본 경로
   const scrollThresholds = [0, 0.33, 0.66, 1]; // 스크롤 위치 임계값 배열
 
@@ -36,7 +36,7 @@ function MainComponent() {
             src={imageBaseUrl + imageName}
             alt={`Image ${index + 1}`}
             className={`scrolling-image ${index === currentImageIndex ? 'active' : ''}`}
-            style={{width: '300px'}}
+            style={{width: '100%'}}
             /></>
         ))}
       </div>
