@@ -14,7 +14,6 @@ import kr.co.tj.userservice.info.persistence.UserInfoEntity;
 @Component
 public class TokenProvider {
 	
-	//private static final String SECRET_KEY = "tj705team";
 	private Environment env;
 	
 	@Autowired
