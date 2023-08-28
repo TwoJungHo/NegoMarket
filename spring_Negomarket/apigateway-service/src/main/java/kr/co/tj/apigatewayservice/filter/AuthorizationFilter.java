@@ -91,6 +91,7 @@ public class AuthorizationFilter extends AbstractGatewayFilterFactory<Authorizat
 		return isValid;
 	}
 
+	
 	private Mono<Void> onError(ServerWebExchange exchange, String string, HttpStatus status) {
 		ServerHttpResponse response =  exchange.getResponse();
 		response.setStatusCode(status);
