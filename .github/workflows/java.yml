@@ -1,7 +1,7 @@
 name: Java ci/cd with Maven
 
 on:
-  push: 
+  push:
     paths:
       - "spring_Negomarket/apigateway-service/**"
   pull_request:
@@ -11,46 +11,46 @@ on:
 permissions:
   contents: read
 
-jobs: 
+jobs:
   build:
     runs-on: ubuntu-20.04
 
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: setup jdk11
-      uses: actions/setup-java@v3
-      with:
-        java-version: '11'
-        distribution: 'temurin'
+      - name: setup jdk11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
 
-    - name: Build with Maven
-      run: mvn clean install
+      - name: Build with Maven
+        run: cd spring_Negomarket/apigateway-service && mvn clean install
 
-    - name: docker image build
-      run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/apigateway-service .
+      - name: docker image build
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/apigateway-service .
 
-    - name: docker login
-      uses: docker/login-action@v2
-      with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: docker login
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    - name: dockerhub push
-      run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/apigateway-service
+      - name: dockerhub push
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/apigateway-service
 
   deploy:
     needs: build
     name: deploy
     runs-on: [self-hosted, label-1]
     steps:
-    - name: login dockerhub
-      uses: docker/login-action@v2
-      with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: login dockerhub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    - name: docker run
-      run: |
-        docker stop gs01 && docker rm gs01 && docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/apigateway-service
-        docker run -d --name gs01 -p 50005:50005 ${{ secrets.DOCKERHUB_USERNAME }}/apigateway-service
+      - name: docker run
+        run: |
+          docker stop gs01 && docker rm gs01 && docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/apigateway-service
+          docker run -d --name gs01 -p 50005:50005 ${{ secrets.DOCKERHUB_USERNAME }}/apigateway-service
