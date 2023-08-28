@@ -55,6 +55,7 @@ public class ImgFileController {
 		}
 	}
 	
+	
 	@GetMapping("/getimgdata")
 	public ResponseEntity<?> getImg(@RequestParam("id") Long id){
 				
