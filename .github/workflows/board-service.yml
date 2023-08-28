@@ -53,4 +53,4 @@ jobs:
       - name: docker run
         run: |
           docker stop board-service && docker rm board-service && docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/board-service
-          docker run -d --name board-service -p 50005:50005 ${{ secrets.DOCKERHUB_USERNAME }}/board-service
+          docker run -d --name board-service ${{ secrets.DOCKERHUB_USERNAME }}/board-service
