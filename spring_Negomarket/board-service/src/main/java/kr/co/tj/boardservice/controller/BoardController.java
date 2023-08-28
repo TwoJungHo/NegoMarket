@@ -56,6 +56,7 @@ public class BoardController {
 	private SellFeignClient sellFeignClient;
 	private UserFeignClient userFeignClient;
 		
+	
 	@Autowired
 	public BoardController(Environment env, BoardService boardService, SellFeignClient sellFeignClient, UserFeignClient userFeignClient) {
 		super();
