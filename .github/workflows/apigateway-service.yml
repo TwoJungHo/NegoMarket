@@ -53,4 +53,4 @@ jobs:
       - name: docker run
         run: |
           docker stop apigateway-service && docker rm apigateway-service && docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/apigateway-service
-          docker run -d --name apigateway-service -p 50005:50005 ${{ secrets.DOCKERHUB_USERNAME }}/apigateway-service
+          docker run -d --name apigateway-service -p 8000:8000 ${{ secrets.DOCKERHUB_USERNAME }}/apigateway-service
