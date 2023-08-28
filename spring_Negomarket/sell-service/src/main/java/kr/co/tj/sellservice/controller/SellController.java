@@ -91,6 +91,7 @@ public class SellController {
 			return ResponseEntity.ok().body(sellResponse);
 		}
 
+		
 		SellResponse sellResponse = SellResponse.builder()
 				.sellInfoResponse(sellInfoResponse)
 				.imgPathId(null)
