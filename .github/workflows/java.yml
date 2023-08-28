@@ -28,7 +28,7 @@ jobs:
         run: cd spring_Negomarket/apigateway-service && mvn clean install
 
       - name: docker image build
-        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/apigateway-service .
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/apigateway-service spring_Negomarket/apigateway-service
 
       - name: docker login
         uses: docker/login-action@v2
