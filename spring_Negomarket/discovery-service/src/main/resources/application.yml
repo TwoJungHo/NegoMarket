@@ -10,6 +10,7 @@ spring:
     username: guest
     password: guest
     
+    
 eureka:
   client:
     register-with-eureka: false # 디스커버리서버에 등록할건가 ? 안함
