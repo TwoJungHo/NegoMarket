@@ -53,4 +53,4 @@ jobs:
       - name: docker run
         run: |
           docker stop discovery-service && docker rm discovery-service && docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/discovery-service
-          docker run -d --name discovery-service -p 8888:8888 ${{ secrets.DOCKERHUB_USERNAME }}/discovery-service
+          docker run -d --name discovery-service -p 8761:8761 ${{ secrets.DOCKERHUB_USERNAME }}/discovery-service
