@@ -96,7 +96,6 @@ public class AuthorizationFilter extends AbstractGatewayFilterFactory<Authorizat
 		ServerHttpResponse response =  exchange.getResponse();
 		response.setStatusCode(status);
 		
-		
 		return response.setComplete();
 	}
 	
