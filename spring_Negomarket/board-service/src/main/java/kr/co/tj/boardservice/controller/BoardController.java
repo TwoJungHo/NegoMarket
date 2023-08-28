@@ -63,7 +63,6 @@ public class BoardController {
 		this.boardService = boardService;
 		this.sellFeignClient = sellFeignClient;
 		this.userFeignClient = userFeignClient;
-	
 	}
 	
 	@GetMapping("/boards/{sellId}")
