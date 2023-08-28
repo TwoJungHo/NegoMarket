@@ -35,6 +35,7 @@ public class ChatMessageController {
 		this.env = env;
 		this.chatMessageService = chatMessageService;
 	}
+	
 
 	@GetMapping("/messagelist/{roomTitle}")
 	public ResponseEntity<?> getMessageList(@PathVariable("roomTitle") String roomTitle) {
