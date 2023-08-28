@@ -3,10 +3,10 @@ name: Java ci/cd with Maven
 on:
   push: 
     paths:
-      - "spring_Negomarket/apigateway-service"
+      - "spring_Negomarket/apigateway-service/**"
   pull_request:
     paths:
-      - "spring_Negomarket/apigateway-service"
+      - "spring_Negomarket/apigateway-service/**"
 
 permissions:
   contents: read
