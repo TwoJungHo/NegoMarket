@@ -210,6 +210,7 @@ public class UserController {
 			System.out.println(userInfoDTO.getName());
 			return ResponseEntity.status(HttpStatus.OK).body(userInfoDTO);
 	}
+	
 
 	// 회원탈퇴
 	@DeleteMapping("/users")
