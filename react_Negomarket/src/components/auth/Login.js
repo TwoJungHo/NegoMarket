@@ -10,6 +10,7 @@ function Login() {
   localStorage.removeItem('latitude');
   localStorage.removeItem('username');
 
+  
   function onSubmitHandler(e) {
     e.preventDefault();
     const formData = new FormData(e.target);
