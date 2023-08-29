@@ -16,16 +16,12 @@ spring:
         add-to-simple-url-handler-mapping: true
         cors-configurations:
           '[/**]':
-            allowedOriginPatterns:
+            allowedOrigins: 
+             # - "http://127.0.0.1:3000"
               - "http://localhost:3000"
-              - "http://negomarket:*"
-#            allowedOrigins: 
-#             # - "http://127.0.0.1:3000"
-#              - "*"
-#              - "http://localhost:3000"
-#              - "http://localhost:80"
-#              - "http://negomarket:3000"
-#              - "http://negomarket:80"
+              - "http://localhost:80"
+              - "http://negomarket:3000"
+              - "http://negomarket:80"
             allowedHeaders: '*'
             allow-credentials: true
             allowedMethods: POST, GET, PUT, DELETE
@@ -47,13 +43,6 @@ spring:
         - Path=/sell-service/** #순서 1번   
         - Method=GET, POST, PUT, DELETE
         
-      # review-service
-      - id: review-service 
-        uri: lb://REVIEW-SERVICE 
-        predicates:
-        - Path=/review-service/**   
-        - Method=GET, POST, PUT, DELETE
-      
       
        # chat-service 
       - id: chat-service #순서 2번
@@ -62,19 +51,6 @@ spring:
         - Path=/chat-service/wsstomp #순서 1번   
         - Method=GET, POST, PUT, DELETE
 
-      
-      
-      
-#      # chat-service 
-#      - id: chat-service #순서 2번
-#        uri: lb:ws://CHAT-SERVICE/ #순서 3번
-#        predicates:
-#        - Path=/chat-service/wsstomp #순서 1번   
-#        filters:
-#        - RewritePath=/chat-service/(?<segment>.*), /$\{segment}
-       
-        
-      
       - id: chat-service #순서 2번
         uri: lb://CHAT-SERVICE #순서 3번
         predicates:
@@ -152,11 +128,6 @@ spring:
         filters:
         - name: AuthorizationFilter
      
-      
- 
-        
- 
-      
       
 eureka:
   instance:
