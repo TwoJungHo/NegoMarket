@@ -25,7 +25,7 @@ jobs:
         java-version: '18.16.0'
 
     - name: Install Dependencies
-      run: npm install
+      run: cd react_Negomarket/ &&npm install
 
     - name: Build react app
       run: npm run build
