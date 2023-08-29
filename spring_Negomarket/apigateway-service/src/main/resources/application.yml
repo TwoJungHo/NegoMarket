@@ -16,13 +16,16 @@ spring:
         add-to-simple-url-handler-mapping: true
         cors-configurations:
           '[/**]':
-            allowedOrigins: 
-             # - "http://127.0.0.1:3000"
-              - "*"
+            allowedOriginPatterns:
               - "http://localhost:3000"
-              - "http://localhost:80"
-              - "http://negomarket:3000"
-              - "http://negomarket:80"
+              - "http://negomarket:*"
+#            allowedOrigins: 
+#             # - "http://127.0.0.1:3000"
+#              - "*"
+#              - "http://localhost:3000"
+#              - "http://localhost:80"
+#              - "http://negomarket:3000"
+#              - "http://negomarket:80"
             allowedHeaders: '*'
             allow-credentials: true
             allowedMethods: POST, GET, PUT, DELETE
