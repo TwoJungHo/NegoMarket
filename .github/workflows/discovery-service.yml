@@ -7,6 +7,7 @@ on:
   pull_request:
     paths:
       - "spring_Negomarket/discovery-service/**"
+  workflow_dispatch:
 
 permissions:
   contents: read
