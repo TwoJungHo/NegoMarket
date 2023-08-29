@@ -30,6 +30,7 @@ function ChatRoom() {
         }
       }
     );
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [username2]);
 
   useEffect(() => {

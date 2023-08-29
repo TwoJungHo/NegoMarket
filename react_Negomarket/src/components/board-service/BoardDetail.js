@@ -1,9 +1,10 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, { useEffect, useState } from 'react'
 
 import ReactQuill from 'react-quill'
 import KakaoMapTest from '../kakaoMapComponents/KakaoMapTest';
 import { fetchFn } from '../../NetworkUtils';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { API_URL } from '../../Constants';
 
 

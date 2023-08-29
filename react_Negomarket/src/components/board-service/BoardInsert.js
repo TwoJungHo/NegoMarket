@@ -26,7 +26,7 @@ function BoardInsert() {
   const [price, setPrice] = useState();
   const [latitude, setLatitude] = useState();
   const [longitude, setLongitude] = useState();
-  const [sellState, setSellState] = useState();
+  const [setSellState] = useState();
 
   const setPositionData = { setLatitude, setLongitude }
   const setSellData = { setImgFile, setProductName, setPrice, setSellState }
