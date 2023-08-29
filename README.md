@@ -1,3 +1,5 @@
+[![Board-service Java ci/cd with Maven](https://github.com/TwoJungHo/NegoMarket/actions/workflows/board-service.yml/badge.svg)](https://github.com/TwoJungHo/NegoMarket/actions/workflows/board-service.yml)
+
 # 🖥 프로젝트 소개
 
 
