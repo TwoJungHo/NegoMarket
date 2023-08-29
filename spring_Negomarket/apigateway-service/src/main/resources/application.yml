@@ -19,6 +19,9 @@ spring:
             allowedOrigins: 
              # - "http://127.0.0.1:3000"
               - "http://localhost:3000"
+              - "http://localhost:80"
+              - "http://negomarket:3000"
+              - "http://negomarket:80"
             allowedHeaders: '*'
             allow-credentials: true
             allowedMethods: POST, GET, PUT, DELETE
