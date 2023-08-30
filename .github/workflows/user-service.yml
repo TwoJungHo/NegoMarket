@@ -26,7 +26,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Build with Maven
-        run: cd spring_Negomarket/user-service && mvn clean install -DskipTests=true
+        run: cd spring_Negomarket/user-service && mvn clean install
 
       - name: docker image build
         run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/user-service spring_Negomarket/user-service
@@ -40,18 +40,18 @@ jobs:
       - name: dockerhub push
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/user-service
 
-  deploy:
-    needs: build
-    name: deploy
-    runs-on: [self-hosted, label-1]
-    steps:
-      - name: login dockerhub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+  # deploy:
+  #   needs: build
+  #   name: deploy
+  #   runs-on: [self-hosted, label-1]
+  #   steps:
+  #     - name: login dockerhub
+  #       uses: docker/login-action@v2
+  #       with:
+  #         username: ${{ secrets.DOCKERHUB_USERNAME }}
+  #         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: docker run
-        run: |
-          docker stop user-service && docker rm user-service && docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/user-service
-          docker run -d --name user-service ${{ secrets.DOCKERHUB_USERNAME }}/user-service
+  #     - name: docker run
+  #       run: |
+  #         docker stop user-service && docker rm user-service && docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/user-service
+  #         docker run -d --name user-service ${{ secrets.DOCKERHUB_USERNAME }}/user-service
