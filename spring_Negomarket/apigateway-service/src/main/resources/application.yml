@@ -12,29 +12,46 @@ spring:
     
   cloud:
     gateway:
+      globalcors:
+        add-to-simple-url-handler-mapping: true
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: 
+             # - "http://127.0.0.1:3000"
+              - "http://localhost:3000"
+            allowedHeaders: '*'
+            allow-credentials: true
+            allowedMethods: POST, GET, PUT, DELETE
+            
       routes:
+      
+          
+      # board-service
       - id: board-service
         uri: lb://BOARD-SERVICE
         predicates:
-        - Path=/board-service/**
+        - Path=/board-service/** #유저가 브라우저 주소창에 http://localhost:8000/user-service/users 입력 user-service를 보고 id를 확인하고 uri로 넘어감
         - Method=GET, POST, PUT, DELETE
         
-      - id: sell-service
-        uri: lb://SELL-SERVICE
+      # sell-service
+      - id: sell-service #순서 2번
+        uri: lb://SELL-SERVICE #순서 3번
         predicates:
-        - Path=/sell-service/**
+        - Path=/sell-service/** #순서 1번   
         - Method=GET, POST, PUT, DELETE
         
-      - id: chat-service
-        uri: lb:ws://CHAT-SERVICE/
+      
+       # chat-service 
+      - id: chat-service #순서 2번
+        uri: lb:ws://CHAT-SERVICE/ #순서 3번
         predicates:
-        - Path=/chat-service/wsstomp
+        - Path=/chat-service/wsstomp #순서 1번   
         - Method=GET, POST, PUT, DELETE
 
-      - id: chat-service
-        uri: lb://CHAT-SERVICE
+      - id: chat-service #순서 2번
+        uri: lb://CHAT-SERVICE #순서 3번
         predicates:
-        - Path=/chat-service/**  
+        - Path=/chat-service/** #순서 1번   
         - Method=GET, POST, PUT, DELETE
         
        
@@ -44,6 +61,7 @@ spring:
         - Path=/imgfile-service/**   
         - Method=GET, POST, PUT, DELETE
         
+        # user-service
       - id: user-service 
         uri: lb://USER-SERVICE 
         predicates:
@@ -68,6 +86,8 @@ spring:
         predicates:
         - Path=/user-service/login 
         - Method=POST
+        
+     
         
       - id: user-service 
         uri: lb://USER-SERVICE 
@@ -109,12 +129,13 @@ spring:
 eureka:
   instance:
     prefer-ip-address: true
+    ip-address: localhost
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
   client:
     register-with-eureka: true 
     fetch-registry: true 
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://127.0.0.1:8761/eureka
       
 management:
   endpoints:
