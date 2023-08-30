@@ -6,7 +6,7 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/TwoJungHo/NegoMarket.git
+          uri: https://github.com/twojungho/negomarket.git
   application:
     name: config-service
 
