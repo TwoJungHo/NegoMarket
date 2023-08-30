@@ -38,7 +38,7 @@ spring:
     hibernate:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-      ddl-auto: none
+      ddl-auto: auto
     properties:
       hibernate: 
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
