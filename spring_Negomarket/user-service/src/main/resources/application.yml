@@ -53,13 +53,13 @@ spring:
 eureka:
   instance:
     prefer-ip-address: true
-    ip-address: 127.0.0.1
+    ip-address: localhost
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
   client:
     register-with-eureka: true # 유레카 서버에 등록
     fetch-registry: true # 주기적으로 다른 인스턴스의 데이터를 받아와서 갱신
     service-url:
-      defaultZone: http://127.0.0.1:8761/eureka # 유레카 서버의 주소 정보
+      defaultZone: http://discovery-service:8761/eureka # 유레카 서버의 주소 정보
       
 
 
@@ -69,6 +69,11 @@ management:
       exposure:
         include: refresh, health, beans
 
+logging:
+  level:
+    org.springframework: DEBUG
+
+ver: dev.0.0
     
 #data:
 #  SECRET_KEY: tj705team    
