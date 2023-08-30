@@ -12,46 +12,29 @@ spring:
     
   cloud:
     gateway:
-      globalcors:
-        add-to-simple-url-handler-mapping: true
-        cors-configurations:
-          '[/**]':
-            allowedOrigins: 
-             # - "http://127.0.0.1:3000"
-              - "http://localhost:3000"
-            allowedHeaders: '*'
-            allow-credentials: true
-            allowedMethods: POST, GET, PUT, DELETE
-            
       routes:
-      
-          
-      # board-service
       - id: board-service
         uri: lb://BOARD-SERVICE
         predicates:
-        - Path=/board-service/** #유저가 브라우저 주소창에 http://localhost:8000/user-service/users 입력 user-service를 보고 id를 확인하고 uri로 넘어감
+        - Path=/board-service/**
         - Method=GET, POST, PUT, DELETE
         
-      # sell-service
-      - id: sell-service #순서 2번
-        uri: lb://SELL-SERVICE #순서 3번
+      - id: sell-service
+        uri: lb://SELL-SERVICE
         predicates:
-        - Path=/sell-service/** #순서 1번   
+        - Path=/sell-service/**
         - Method=GET, POST, PUT, DELETE
         
-      
-       # chat-service 
-      - id: chat-service #순서 2번
-        uri: lb:ws://CHAT-SERVICE/ #순서 3번
+      - id: chat-service
+        uri: lb:ws://CHAT-SERVICE/
         predicates:
-        - Path=/chat-service/wsstomp #순서 1번   
+        - Path=/chat-service/wsstomp
         - Method=GET, POST, PUT, DELETE
 
-      - id: chat-service #순서 2번
-        uri: lb://CHAT-SERVICE #순서 3번
+      - id: chat-service
+        uri: lb://CHAT-SERVICE
         predicates:
-        - Path=/chat-service/** #순서 1번   
+        - Path=/chat-service/**  
         - Method=GET, POST, PUT, DELETE
         
        
@@ -61,7 +44,6 @@ spring:
         - Path=/imgfile-service/**   
         - Method=GET, POST, PUT, DELETE
         
-        # user-service
       - id: user-service 
         uri: lb://USER-SERVICE 
         predicates:
@@ -86,8 +68,6 @@ spring:
         predicates:
         - Path=/user-service/login 
         - Method=POST
-        
-     
         
       - id: user-service 
         uri: lb://USER-SERVICE 
