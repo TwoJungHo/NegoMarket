@@ -29,7 +29,8 @@ function MemberInsert() {
 
     fetch_multiForm("POST", "http://localhost:8000/user-service/users", formData)
     .then((data) => {
-    window.location.href = "/"
+      console.log(data)
+    //window.location.href = "/"
     })
     
   }
