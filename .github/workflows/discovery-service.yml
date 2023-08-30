@@ -40,18 +40,18 @@ jobs:
       - name: dockerhub push
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/discovery-service
 
-  deploy:
-    needs: build
-    name: deploy
-    runs-on: [self-hosted, label-1]
-    steps:
-      - name: login dockerhub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+  # deploy:
+  #   needs: build
+  #   name: deploy
+  #   runs-on: [self-hosted, label-1]
+  #   steps:
+  #     - name: login dockerhub
+  #       uses: docker/login-action@v2
+  #       with:
+  #         username: ${{ secrets.DOCKERHUB_USERNAME }}
+  #         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: docker run
-        run: |
-          docker stop discovery-service && docker rm discovery-service && docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/discovery-service
-          docker run -d --name discovery-service -p 8761:8761 ${{ secrets.DOCKERHUB_USERNAME }}/discovery-service
+  #     - name: docker run
+  #       run: |
+  #         docker stop discovery-service && docker rm discovery-service && docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/discovery-service
+  #         docker run -d --name discovery-service -p 8761:8761 ${{ secrets.DOCKERHUB_USERNAME }}/discovery-service
