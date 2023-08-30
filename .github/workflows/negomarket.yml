@@ -44,18 +44,18 @@ jobs:
       run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/negomarket
 
 
-  deploy:
-    needs: build
-    name: deploy
-    runs-on: [self-hosted, label-1]
-    steps:
-      - name: login dockerhub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+  # deploy:
+  #   needs: build
+  #   name: deploy
+  #   runs-on: [self-hosted, label-1]
+  #   steps:
+  #     - name: login dockerhub
+  #       uses: docker/login-action@v2
+  #       with:
+  #         username: ${{ secrets.DOCKERHUB_USERNAME }}
+  #         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: docker run
-        run: |
-          docker stop negomarket && docker rm negomarket && docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/negomarket
-          docker run -d --name negomarket ${{ secrets.DOCKERHUB_USERNAME }}/negomarket
+  #     - name: docker run
+  #       run: |
+  #         docker stop negomarket && docker rm negomarket && docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/negomarket
+  #         docker run -d --name negomarket ${{ secrets.DOCKERHUB_USERNAME }}/negomarket
