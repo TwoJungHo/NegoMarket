@@ -6,10 +6,9 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/twojungho/negomarket.git
+          uri: https://github.com/TwoJungHo/NegoMarket.git
   application:
     name: config-service
-
 
   rabbitmq:
     host: 127.0.0.1
