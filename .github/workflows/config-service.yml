@@ -40,18 +40,18 @@ jobs:
       - name: dockerhub push
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/config-service
 
-  deploy:
-    needs: build
-    name: deploy
-    runs-on: [self-hosted, label-1]
-    steps:
-      - name: login dockerhub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+  # deploy:
+  #   needs: build
+  #   name: deploy
+  #   runs-on: [self-hosted, label-1]
+  #   steps:
+  #     - name: login dockerhub
+  #       uses: docker/login-action@v2
+  #       with:
+  #         username: ${{ secrets.DOCKERHUB_USERNAME }}
+  #         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: docker run
-        run: |
-          docker stop config-service && docker rm config-service && docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/config-service
-          docker run -d --name config-service -p 8888:8888 ${{ secrets.DOCKERHUB_USERNAME }}/config-service
+  #     - name: docker run
+  #       run: |
+  #         docker stop config-service && docker rm config-service && docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/config-service
+  #         docker run -d --name config-service -p 8888:8888 ${{ secrets.DOCKERHUB_USERNAME }}/config-service
