@@ -6,8 +6,8 @@ spring:
     config:
       server:
         git:
-          #uri: file:D:\\WorkSpace\\workspace_boot\\work\\git-repo
-          uri: https://github.com/TwoJungHo/marketapi.git
+          uri: file:C:\WorkSpace\workspace_boot\work\git-repo
+          
   application:
     name: config-service
   
