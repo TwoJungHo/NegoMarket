@@ -121,4 +121,4 @@ management:
   endpoints:
     web:
       exposure:
-        include: refresh, health, info, beans
+        include: refresh, health, info, beans, busrefresh
