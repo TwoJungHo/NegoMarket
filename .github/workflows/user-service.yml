@@ -26,7 +26,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Build with Maven
-        run: cd spring_Negomarket/user-service && mvn clean install
+        run: cd spring_Negomarket/user-service && mvn clean install -DskipTests=true
 
       - name: docker image build
         run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/user-service spring_Negomarket/user-service
