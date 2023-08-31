@@ -10,107 +10,107 @@ spring:
     username: guest
     password: guest
 
-cloud:
-  gateway:
-    globalcors:
-      add-to-simple-url-handler-mapping: true
-      cors-configurations:
-        '[/**]':
-          allowedOrigins: 
-            - "http://localhost:3000"
-          allowedHeaders: '*'
-          allow-credentials: true
-          allowedMethods: POST, GET, PUT, DELETE
+  cloud:
+    gateway:
+      globalcors:
+        add-to-simple-url-handler-mapping: true
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: 
+              - "http://localhost:3000"
+            allowedHeaders: '*'
+            allow-credentials: true
+            allowedMethods: POST, GET, PUT, DELETE
             
-    routes:
-      - id: board-service
-        uri: lb://BOARD-SERVICE
-        predicates:
-          - Path=/board-service/**
-          - Method=GET, POST, PUT, DELETE
+      routes:
+        - id: board-service
+          uri: lb://BOARD-SERVICE
+          predicates:
+            - Path=/board-service/**
+            - Method=GET, POST, PUT, DELETE
 
-      - id: sell-service
-        uri: lb://SELL-SERVICE
-        predicates:
-          - Path=/sell-service/**
-          - Method=GET, POST, PUT, DELETE
+        - id: sell-service
+          uri: lb://SELL-SERVICE
+          predicates:
+            - Path=/sell-service/**
+            - Method=GET, POST, PUT, DELETE
 
-      - id: chat-service-ws
-        uri: lb:ws://CHAT-SERVICE/
-        predicates:
-          - Path=/chat-service/wsstomp
-          - Method=GET, POST, PUT, DELETE
+        - id: chat-service-ws
+          uri: lb:ws://CHAT-SERVICE/
+          predicates:
+            - Path=/chat-service/wsstomp
+            - Method=GET, POST, PUT, DELETE
 
-      - id: chat-service
-        uri: lb://CHAT-SERVICE
-        predicates:
-          - Path=/chat-service/**
-          - Method=GET, POST, PUT, DELETE
+        - id: chat-service
+          uri: lb://CHAT-SERVICE
+          predicates:
+            - Path=/chat-service/**
+            - Method=GET, POST, PUT, DELETE
 
-      - id: imgfile-service
-        uri: lb://IMGFILE-SERVICE
-        predicates:
+        - id: imgfile-service
+          uri: lb://IMGFILE-SERVICE
+          predicates:
           - Path=/imgfile-service/**
           - Method=GET, POST, PUT, DELETE
 
-      - id: user-service-token-validation
-        uri: lb://USER-SERVICE
-        predicates:
-          - Path=/user-service/tokenValidation
-          - Method=GET
+        - id: user-service-token-validation
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/tokenValidation
+            - Method=GET
 
-      - id: user-service-pw-validation
-        uri: lb://USER-SERVICE
-        predicates:
-          - Path=/user-service/pwvalidation
-          - Method=POST
+        - id: user-service-pw-validation
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/pwvalidation
+            - Method=POST
 
-      - id: user-service-create-user
-        uri: lb://USER-SERVICE
-        predicates:
-          - Path=/user-service/users
-          - Method=POST
+        - id: user-service-create-user
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/users
+            - Method=POST
 
-      - id: user-service-login
-        uri: lb://USER-SERVICE
-        predicates:
-          - Path=/user-service/login
-          - Method=POST
+        - id: user-service-login
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/login
+            - Method=POST
 
-      - id: user-service-pic
-        uri: lb://USER-SERVICE
-        predicates:
-          - Path=/user-service/pic/**
-          - Method=GET
+        - id: user-service-pic
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/pic/**
+            - Method=GET
 
-      - id: user-service-test-insert
-        uri: lb://USER-SERVICE
-        predicates:
-          - Path=/user-service/testinsert
-          - Method=POST
+        - id: user-service-test-insert
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/testinsert
+            - Method=POST
 
-      - id: user-service-health-check
-        uri: lb://USER-SERVICE
-        predicates:
-          - Path=/user-service/health_check
-          - Method=GET
+        - id: user-service-health-check
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/health_check
+            - Method=GET
 
-      - id: user-service-actuator
-        uri: lb://USER-SERVICE
-        predicates:
-          - Path=/user-service/actuator/**
-          - Method=GET, POST
-        filters:
-          - RemoveRequestHeader=Cookie
-          - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+        - id: user-service-actuator
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/actuator/**
+            - Method=GET, POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
 
-      - id: user-service-all
-        uri: lb://USER-SERVICE
-        predicates:
-          - Path=/user-service/**
-          - Method=GET, POST, PUT, DELETE
-        filters:
-          - name: AuthorizationFilter
+        - id: user-service-all
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/**
+            - Method=GET, POST, PUT, DELETE
+          filters:
+            - name: AuthorizationFilter
 
 eureka:
   instance:
