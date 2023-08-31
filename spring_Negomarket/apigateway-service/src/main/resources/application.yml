@@ -1,6 +1,6 @@
 server:
   port: 8000
-  
+
 spring:
   application:
     name: apigateway-service
@@ -9,123 +9,109 @@ spring:
     port: 5672
     username: guest
     password: guest
-    
-  cloud:
-    gateway:
-      globalcors:
-        add-to-simple-url-handler-mapping: true
-        cors-configurations:
-          '[/**]':
-            allowedOrigins: 
-             # - "http://127.0.0.1:3000"
-              - "http://localhost:3000"
-            allowedHeaders: '*'
-            allow-credentials: true
-            allowedMethods: POST, GET, PUT, DELETE
+
+cloud:
+  gateway:
+    globalcors:
+      add-to-simple-url-handler-mapping: true
+      cors-configurations:
+        '[/**]':
+          allowedOrigins: 
+            - "http://localhost:3000"
+          allowedHeaders: '*'
+          allow-credentials: true
+          allowedMethods: POST, GET, PUT, DELETE
             
-      routes:
-      
-          
-      # board-service
+    routes:
       - id: board-service
         uri: lb://BOARD-SERVICE
         predicates:
-        - Path=/board-service/** #유저가 브라우저 주소창에 http://localhost:8000/user-service/users 입력 user-service를 보고 id를 확인하고 uri로 넘어감
-        - Method=GET, POST, PUT, DELETE
-        
-      # sell-service
-      - id: sell-service #순서 2번
-        uri: lb://SELL-SERVICE #순서 3번
-        predicates:
-        - Path=/sell-service/** #순서 1번   
-        - Method=GET, POST, PUT, DELETE
-        
-      
-       # chat-service 
-      - id: chat-service #순서 2번
-        uri: lb:ws://CHAT-SERVICE/ #순서 3번
-        predicates:
-        - Path=/chat-service/wsstomp #순서 1번   
-        - Method=GET, POST, PUT, DELETE
+          - Path=/board-service/**
+          - Method=GET, POST, PUT, DELETE
 
-      - id: chat-service #순서 2번
-        uri: lb://CHAT-SERVICE #순서 3번
+      - id: sell-service
+        uri: lb://SELL-SERVICE
         predicates:
-        - Path=/chat-service/** #순서 1번   
-        - Method=GET, POST, PUT, DELETE
-        
-       
-      - id: imgfile-service 
-        uri: lb://IMGFILE-SERVICE 
+          - Path=/sell-service/**
+          - Method=GET, POST, PUT, DELETE
+
+      - id: chat-service-ws
+        uri: lb:ws://CHAT-SERVICE/
         predicates:
-        - Path=/imgfile-service/**   
-        - Method=GET, POST, PUT, DELETE
-        
-        # user-service
-      - id: user-service 
-        uri: lb://USER-SERVICE 
+          - Path=/chat-service/wsstomp
+          - Method=GET, POST, PUT, DELETE
+
+      - id: chat-service
+        uri: lb://CHAT-SERVICE
         predicates:
-        - Path=/user-service/tokenValidation
-        - Method=GET
-        
-      - id: user-service 
-        uri: lb://USER-SERVICE 
+          - Path=/chat-service/**
+          - Method=GET, POST, PUT, DELETE
+
+      - id: imgfile-service
+        uri: lb://IMGFILE-SERVICE
         predicates:
-        - Path=/user-service/pwvalidation
-        - Method=POST
-        
-           
-      - id: user-service 
-        uri: lb://USER-SERVICE 
-        predicates:
-        - Path=/user-service/users
-        - Method=POST
-        
-      - id: user-service 
-        uri: lb://USER-SERVICE 
-        predicates:
-        - Path=/user-service/login 
-        - Method=POST
-        
-     
-        
-      - id: user-service 
-        uri: lb://USER-SERVICE 
-        predicates:
-        - Path=/user-service/pic/*
-        - Method=GET
-        
-      - id: user-service 
-        uri: lb://USER-SERVICE 
-        predicates:
-        - Path=/user-service/testinsert
-        - Method=POST
-      
-      - id: user-service 
-        uri: lb://USER-SERVICE 
-        predicates:
-        - Path=/user-service/health_check
-        - Method=GET
-        
-      - id: user-service
+          - Path=/imgfile-service/**
+          - Method=GET, POST, PUT, DELETE
+
+      - id: user-service-token-validation
         uri: lb://USER-SERVICE
         predicates:
-        - Path=/user-service/actuator/**
-        - Method=GET, POST
-        filters:
-        - RemoveRequestHeader=Cookie
-        - RewritePath=/user-service/(?<segment>.*), /$\{segment}
-      
+          - Path=/user-service/tokenValidation
+          - Method=GET
 
-      - id: user-service 
-        uri: lb://USER-SERVICE 
+      - id: user-service-pw-validation
+        uri: lb://USER-SERVICE
         predicates:
-        - Path=/user-service/**   
-        - Method=GET, POST, PUT, DELETE
+          - Path=/user-service/pwvalidation
+          - Method=POST
+
+      - id: user-service-create-user
+        uri: lb://USER-SERVICE
+        predicates:
+          - Path=/user-service/users
+          - Method=POST
+
+      - id: user-service-login
+        uri: lb://USER-SERVICE
+        predicates:
+          - Path=/user-service/login
+          - Method=POST
+
+      - id: user-service-pic
+        uri: lb://USER-SERVICE
+        predicates:
+          - Path=/user-service/pic/**
+          - Method=GET
+
+      - id: user-service-test-insert
+        uri: lb://USER-SERVICE
+        predicates:
+          - Path=/user-service/testinsert
+          - Method=POST
+
+      - id: user-service-health-check
+        uri: lb://USER-SERVICE
+        predicates:
+          - Path=/user-service/health_check
+          - Method=GET
+
+      - id: user-service-actuator
+        uri: lb://USER-SERVICE
+        predicates:
+          - Path=/user-service/actuator/**
+          - Method=GET, POST
         filters:
-        - name: AuthorizationFilter
-     
-      
+          - RemoveRequestHeader=Cookie
+          - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+
+      - id: user-service-all
+        uri: lb://USER-SERVICE
+        predicates:
+          - Path=/user-service/**
+          - Method=GET, POST, PUT, DELETE
+        filters:
+          - name: AuthorizationFilter
+
 eureka:
   instance:
     prefer-ip-address: true
@@ -136,7 +122,7 @@ eureka:
     fetch-registry: true 
     service-url:
       defaultZone: http://127.0.0.1:8761/eureka
-      
+
 management:
   endpoints:
     web:
