@@ -6,7 +6,7 @@ spring:
     config:
       server:
         git:
-          uri: file:C:\WorkSpace\workspace_boot\work\git-repo
+          uri: https://github.com/TwoJungHo/NegoMarket.git
           
   application:
     name: config-service
