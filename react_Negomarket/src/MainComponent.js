@@ -2,9 +2,7 @@
 import React, { useState, useEffect } from 'react';
 
 function MainComponent() {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const imageNames = ['nego_main.png', 'nego_main2.png', 'preview.png']; // 이미지 파일명 배열
-  const imageBaseUrl = '/img/'; // 이미지가 저장된 기본 경로
+  const [ setCurrentImageIndex] = useState(0);
   const scrollThresholds = [0, 0.33, 0.66, 1]; // 스크롤 위치 임계값 배열
 
   const handleScroll = () => {
@@ -30,7 +28,7 @@ function MainComponent() {
   return (
     <div>
       
-      <img src='/img/nego_main4.png' />
+      <img src='/img/nego_main4.png' alt=''/>
       {/* <div>
         {imageNames.map((imageName, index) => (
         <><br /><img
