@@ -60,7 +60,7 @@ const lat = props.getPositionData.latitude;
     <div style={{ height: '200px'}}>
       
       <div id="kmap" className="border" style={{ display : 'inline-block', width: "880px", height: "400px"}}></div>
-      <img src="/img/pin2.png" style={{verticalAlign: '-12px' ,width: '40px', height:'auto', marginRight: '5px'}}/>
+      <img src="/img/pin2.png" style={{verticalAlign: '-12px' ,width: '40px', height:'auto', marginRight: '5px'}} alt=""/>
       <input  className='border' style={{display: 'inline-block', width: '495px', height: '30px'}} ref={inputAddress} placeholder="거래 희망 장소 선택                                           ex) 서울특별시 강남구 한남동"/><button className="button" onClick={clickSearchEvent}>검색</button>
       <div>{addArr.length > 0 && addArr.map((x, index) => <AddressComp key={index} map={map} marker={marker} add={x}/>)}</div>
     </div>

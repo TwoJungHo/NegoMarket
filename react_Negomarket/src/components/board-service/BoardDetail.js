@@ -54,7 +54,7 @@ function openPopup(path) {
         {/* 거래정보 */}
        <div style={{verticalAlign: 'center', display: 'inline-block', width: '450px', height: '210px', paddingInline: '3%', marginLeft: '1%', fontSize: 'larger'}}>
         
-        판매자 : {board.sellInfoResponse.username} <button className='detailbutton' onClick={() => openPopup(`/chatwith/${board.sellInfoResponse.username}`)}><img src='/img/chatting.png' style={{widthd: '30px', height: '30px'}}/></button><br/>
+        판매자 : {board.sellInfoResponse.username} <button className='detailbutton' onClick={() => openPopup(`/chatwith/${board.sellInfoResponse.username}`)}><img src='/img/chatting.png' style={{widthd: '30px', height: '30px'}} alt=''/></button><br/>
         물품 : {board.sellInfoResponse.productName}<br/>
         가격 : {board.sellInfoResponse.price}<br/>
         작성일 : {formatTimestamp(board.sellInfoResponse.createAt)}<br/>

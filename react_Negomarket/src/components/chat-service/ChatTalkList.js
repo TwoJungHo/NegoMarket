@@ -11,7 +11,7 @@ function ChatTalkList(props) {
   }, [props.messageList]);
 
   return (<>
-    <h1><img src="/img/negochat.png" style={{width: '130px', height: '56px',marginTop: '-15px' ,marginBottom: '-14px'}}/></h1>
+    <h1><img src="/img/negochat.png" style={{width: '130px', height: '56px',marginTop: '-15px' ,marginBottom: '-14px'}} alt=""/></h1>
     <div className='chatMessageBox' ref={chatRef}>
       
       <div>

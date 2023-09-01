@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import KakaoMapSignUp from "../kakaoMapComponents/KakaoMapSignUp";
 import { fetch_multiForm } from "../../networkFns/fetchFns";
+import { API_URL } from "../../Constants";
 
 function MemberInsert() {
   const picFile = useRef();
@@ -27,7 +28,7 @@ function MemberInsert() {
     formData.append("longitude", longitude);
     formData.append("latitude", latitude);
 
-    fetch_multiForm("POST", "http://localhost:8000/user-service/users", formData)
+    fetch_multiForm("POST", `http://${API_URL}:8000/user-service/users`, formData)
     .then((data) => {
       console.log(data)
     //window.location.href = "/"

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchFn } from "../../NetworkUtils";
+import { API_URL } from "../../Constants";
 
 function MemberUpdate() {
   const username = useParams().username;
@@ -36,7 +37,7 @@ function onSubmitHandler(e){
 
     console.log(dto);
 
-    fetchFn("PUT", "http://localhost:9005/api/member", dto)
+    fetchFn("PUT", `http://${API_URL}:9005/api/member`, dto)
     .then(data => {
 
         window.location.href=`/member/detail/${data.result.username}`;
