@@ -28,7 +28,7 @@ function MemberInsert() {
     formData.append("longitude", longitude);
     formData.append("latitude", latitude);
 
-    fetch_multiForm("POST", `http://${API_URL}:8000/user-service/users`, formData)
+    fetch_multiForm("POST", `http://${API_URL}/user-service/users`, formData)
     .then((data) => {
       console.log(data)
     //window.location.href = "/"
