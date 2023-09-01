@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Client } from "@stomp/stompjs";
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
