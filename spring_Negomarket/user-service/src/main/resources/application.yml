@@ -23,8 +23,7 @@ spring:
       
 eureka:
   instance:
-    prefer-ip-address: true
-    ip-address: 127.0.0.1
+    prefer-ip-address: false
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
   client:
     register-with-eureka: true # 유레카 서버에 등록
