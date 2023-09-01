@@ -44,7 +44,7 @@ spring:
     
 eureka:
   instance:
-    prefer-ip-address: true
+    prefer-ip-address: false
     ip-address: 127.0.0.1
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
   client:
