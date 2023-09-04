@@ -102,7 +102,8 @@
 
 **메인 화면**
 
-![Untitled](https://github.com/TwoJungHo/NegoMarket/assets/132986801/ffce898c-5402-4eb0-b91c-9a2b793f293b)
+![image](https://github.com/TwoJungHo/NegoMarket/assets/132986801/c6b5a1b6-130a-4c52-b70b-ff30563f5013)
+
 
 
 **글 작성 화면**
