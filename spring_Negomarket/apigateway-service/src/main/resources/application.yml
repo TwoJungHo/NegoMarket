@@ -4,11 +4,6 @@ server:
 spring:
   application:
     name: apigateway-service
-  rabbitmq:
-    host: 127.0.0.1
-    port: 5672
-    username: guest
-    password: guest
 
   cloud:
     gateway:
@@ -40,8 +35,8 @@ spring:
         - id: imgfile-service
           uri: lb://IMGFILE-SERVICE
           predicates:
-          - Path=/imgfile-service/**
-          - Method=GET, POST, PUT, DELETE
+            - Path=/imgfile-service/**
+            - Method=GET, POST, PUT, DELETE
 
         - id: user-service-token-validation
           uri: lb://USER-SERVICE
@@ -85,21 +80,11 @@ spring:
             - Path=/user-service/health_check
             - Method=GET
 
-        - id: user-service-actuator
-          uri: lb://USER-SERVICE
-          predicates:
-            - Path=/user-service/actuator/**
-            - Method=GET, POST
-          filters:
-            - RemoveRequestHeader=Cookie
-            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
-
         - id: user-service-all
           uri: lb://USER-SERVICE
           predicates:
             - Path=/user-service/**
             - Method=GET, POST, PUT, DELETE
-
 
 eureka:
   instance:
@@ -111,9 +96,3 @@ eureka:
     fetch-registry: true 
     service-url:
       defaultZone: http://127.0.0.1:8761/eureka
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: refresh, health, info, beans, busrefresh

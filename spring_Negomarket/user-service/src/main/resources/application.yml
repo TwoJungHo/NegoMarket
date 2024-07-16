@@ -1,20 +1,14 @@
 server:
-  port: 0 # 0번 port를 사용하겠다는 의가 아님. 사용되지 않는 port번호를 임의로 할당해달라는 의미...
+  port: 8081 # 특정 포트를 지정하는 것이 일반적으로 더 안정적입니다.
   
 spring:
   application:
     name: user-service
-  rabbitmq:
-    host: 127.0.0.1
-    port: 5672
-    username: guest
-    password: guest
-
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/negomarket?serverTimezone=Asia/Seoul
-    username: tj705
-    password: tj705
+    username: root
+    password: root
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -23,23 +17,13 @@ spring:
       
 eureka:
   instance:
-    prefer-ip-address: false
-    ip-address: 127.0.0.1
+    prefer-ip-address: true # IP 주소를 선호하도록 설정
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
   client:
-    register-with-eureka: true # 유레카 서버에 등록
-    fetch-registry: true # 주기적으로 다른 인스턴스의 데이터를 받아와서 갱신
+    register-with-eureka: true
+    fetch-registry: true
     service-url:
-      defaultZone: http://127.0.0.1:8761/eureka # 유레카 서버의 주소 정보
-      
+      defaultZone: http://127.0.0.1:8761/eureka
 
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: refresh, health, beans
-
-    
 #data:
 #  SECRET_KEY: tj705team    

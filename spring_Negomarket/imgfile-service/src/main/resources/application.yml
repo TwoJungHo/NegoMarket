@@ -4,11 +4,11 @@ server:
 spring:
   application:
     name: imgfile-service
-  rabbitmq:
-    host: 127.0.0.1
-    port: 5672
-    username: guest
-    password: guest
+#  rabbitmq:
+#    host: 127.0.0.1
+#    port: 5672
+#    username: guest
+#    password: guest
   
   
 #  h2: # h2 데이터베이스. 내장형이라서 어플리케이션 도메인, 포트 그대로 사용함.
@@ -34,8 +34,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/negomarket?serverTimezone=Asia/Seoul
-    username: tj705
-    password: tj705
+    username: root
+    password: root
   jpa:
     hibernate:
       ddl-auto: update
@@ -44,7 +44,7 @@ spring:
     
 eureka:
   instance:
-    prefer-ip-address: false
+    prefer-ip-address: true
     ip-address: 127.0.0.1
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
   client:

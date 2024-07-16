@@ -89,7 +89,13 @@ public class UserInfoServiceImpl implements UserInfoService {
 
 		String encPassword = passwordEncoder.encode(userInfoDTO.getPassword());
 		userInfoDTO.setPassword(encPassword);
-		
+		System.err.println(userInfoDTO);
+		System.err.println(userInfoDTO);
+		System.err.println(userInfoDTO);
+		System.err.println(userInfoDTO);
+		System.err.println(userInfoDTO);
+		System.err.println(userInfoDTO);
+		System.err.println(userInfoDTO);
 		UserInfoEntity userInfoEntity = UserInfoEntity.builder()
 				.username(userInfoDTO.getUsername())
 				.password(encPassword)

@@ -118,10 +118,13 @@ public class UserController {
 		// 회원가입
 		@PostMapping("/users")
 		public ResponseEntity<?> insertUser(MultipartHttpServletRequest request) {
+			System.err.println(request.getParameterMap());
 			
 			if(request.getFile("picFile") == null) {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("사용자 프로필 사진을 등록하세요");
 			}
+			
+			System.err.println(request);
 			
 			MultipartFile picFile = request.getFile("picFile");
 			String picFilename = picFile.getOriginalFilename();

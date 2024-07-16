@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ChatRoomRepository extends JpaRepository<ChatRoomEntity, String>{
+public interface ChatRoomRepository extends JpaRepository<ChatRoomEntity, Long>{
 
 	Optional<ChatRoomEntity> findByTitle(String title);
 

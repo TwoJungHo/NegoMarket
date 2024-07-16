@@ -4,17 +4,17 @@ server:
 spring:
   application:
     name: sell-service
-  rabbitmq:
-    host: 127.0.0.1
-    port: 5672
-    username: guest
-    password: guest
+#  rabbitmq:
+#    host: 127.0.0.1
+#    port: 5672
+#    username: guest
+#    password: guest
     
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/negomarket?serverTimezone=Asia/Seoul
-    username: tj705
-    password: tj705
+    username: root
+    password: root
   jpa:
     hibernate:
       ddl-auto: update
@@ -23,7 +23,7 @@ spring:
       
 eureka:
   instance:
-    prefer-ip-address: false
+    prefer-ip-address: true
     ip-address: 127.0.0.1
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
   client:

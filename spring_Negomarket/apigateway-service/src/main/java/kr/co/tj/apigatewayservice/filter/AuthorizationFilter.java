@@ -20,7 +20,7 @@ import reactor.core.publisher.Mono;
 @Component
 public class AuthorizationFilter extends AbstractGatewayFilterFactory<AuthorizationFilter.Config>{
 	
-	//private static final String SECRET_KEY="tj705team";
+//	private static final String SECRET_KEY="tj705team";
 	private Environment env;
 	
 	@Autowired

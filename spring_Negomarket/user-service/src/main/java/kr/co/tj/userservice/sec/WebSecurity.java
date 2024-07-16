@@ -24,7 +24,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter{
 		.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		
 		http.authorizeRequests()
-		.antMatchers("/**").permitAll()
+		.antMatchers("*").permitAll()
 		.antMatchers("/user-service/users/**").permitAll();
 		
 		http
